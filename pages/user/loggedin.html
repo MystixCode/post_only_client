@@ -1,0 +1,23 @@
+<h2>Loggedin</h2>
+<p>TODO: username and profile picture and stuff like this from db</p>
+<p>server has then to check token and if ok return results</p>
+<p>maybe also request characterlist from character service</p>
+<p>then create token refresh functionality</p>
+<p>then create game client in Godot</p>
+<script>
+
+//TODO Client Side token check is not needed, but i could atleast check that some basic entries in token payload are not empty and token not expired
+var token = localStorage.getItem("token"); //store token in browser web storage
+var parsedToken = parseJWT(token)
+if (parsedToken['username']){ //IF "LOGGEDIN"
+    $('#server-results').html('Welcome ' + parsedToken['username']);
+    //change Main Menu add edit user, delete user...
+    $('#usernav').children('div').html("<a href='/user/edit/'>Edit</a><a href='/user/logout/'>Logout</a>");
+    //Request stuff from api
+    var data = {};
+    data['service'] = "character";
+    data['action'] = "list";
+    sendData(data); //TODO send and check token on server
+}
+
+</script>

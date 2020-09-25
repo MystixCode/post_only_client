@@ -1,0 +1,32 @@
+<h2>Register</h2>
+<div class="container">
+  <form action="#" method="post" id="registerform">
+    <label>Name</label>
+    <input type="text" name="name">
+    <label>Email</label>
+    <input type="email" name="email">
+    <label>Password</label>
+    <input type="password" name="password">
+    <label>Password2</label>
+    <input type="password" name="password2">
+    <input type="submit" name="submit" value="Submit Form">
+    <div id="server-results"></div>
+  </form>
+</div>
+
+
+<script>
+  $("#registerform").submit(function(event){
+    event.preventDefault(); //prevent default action
+    var data = {};
+    data['service'] = "user";
+    data['action'] = "register";
+    data['payload'] = {};
+    data['payload']['name'] = $(this[name="name"]).val();
+    data['payload']['email'] = $(this[name="email"]).val();
+    data['payload']['password'] = $(this[name="password"]).val();
+    data['payload']['password2'] = $(this[name="password2"]).val();
+    sendData(data);
+  });
+
+</script>
