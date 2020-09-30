@@ -1,0 +1,34 @@
+<h2>Character list</h2>
+
+
+
+<script>
+
+    var token = localStorage.getItem("token");
+
+    if (token){
+        var parsedToken = parseJWT(token)
+        if (parsedToken['username']){ //IF "LOGGEDIN"
+
+            //Request stuff from api
+            var data = {};
+            data['service'] = "character";
+            data['action'] = "list";
+            sendData(data); //TODO send and check token on server
+        }
+        else {
+
+            alert('not logged in - token not valid - TODO: go to login');
+
+
+        }
+    }
+    else {
+        //alert('not logged in - no token found - TODO: go to login');
+    $("#app").html( '<button type="button" onclick="myFunction()">You are not logged in! Go to login page here</button>' );
+    }
+
+    function myFunction(){
+    var page = '/user/login';getPage(page);history.pushState(page, page, page);
+    }
+    </script>

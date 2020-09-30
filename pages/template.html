@@ -57,12 +57,12 @@ function getPage(page){
     {
         page = '/home';
     }
-    if (page == 'user/logout')
+    if (page == '/user/logout')
     {
        localStorage.removeItem('token');
-       window.location.href = "/";
+       window.location.href = "https://mystixgame.tk";
     }
-    var pages = ["/home", "/about", "/user/login", "/user/register", "/user/loggedin", "/user/edit"];
+    var pages = ["/home", "/about", "/user/login", "/user/register", "/user/loggedin", "/user/edit", "/character/list"];
 
     if  (pages.indexOf(page) !== -1)
     { //if page in pages
@@ -116,7 +116,25 @@ function getPage(page){
            }
            break;
          case "character":
-            $("#server-results").append(data['payload']);
+
+
+            switch(data['action']) {
+                case "list":
+                //TODO!!!!!!!!!!!!!!!!!!!!!!!send data to function in character list script
+                    $("#server-results").append(data['payload']);
+                    $("#app").html("<div><ul id='characterlist'></ul></div>");
+//todo foreach item in payload
+
+                    data['payload'].forEach ((item, index) => {
+                    	$("#characterlist").append("<li>" + item + "</li>");
+                    });
+
+
+
+                    break;
+            }
+
+
            break;
          case "otherservice":
            alert("otherservice!!!!!!!!!!!!!!!!");
