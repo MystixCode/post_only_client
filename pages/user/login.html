@@ -1,27 +1,36 @@
 <h2>Login</h2>
 <div class="container">
-  <form action="#" method="post" id="loginform">
-    <label>Name</label>
-    <input type="text" name="name">
-    <label>Password</label>
-    <input type="password" name="password">
-    <input type="submit" name="submit" value="Submit Form">
-    <div id="server-results"></div>
-  </form>
+    <form action="#" method="post" id="loginform">
+        <label>Name</label>
+        <input type="text" name="name">
+        <label>Password</label>
+        <input type="password" name="password">
+        <input type="submit" name="submit" value="Submit Form">
+        <div id="server-results"></div>
+    </form>
 </div>
 
-
 <script>
-  $("#loginform").submit(function(event){
-    event.preventDefault(); //prevent default action
-    var data = {};
-    data['service'] = "user";
-    data['action'] = "login";
-    data['payload'] = {};
-    data['payload']['name'] = $(this[name="name"]).val();
-    data['payload']['password'] = $(this[name="password"]).val();
-    sendData(data);
+    $("#loginform").submit(function(event){
+        event.preventDefault(); //prevent default action
+        var data = {};
+        data['service'] = "user";
+        data['action'] = "login";
+        data['payload'] = {};
+        data['payload']['name'] = $(this[name="name"]).val();
+        data['payload']['password'] = $(this[name="password"]).val();
+        sendData(data);
+    });
 
-
-  });
+    function onResponse(data, jqXHR){
+        //if jwt in header goto loggedin page
+        var token = jqXHR.getResponseHeader("Authorization").replace('Bearer ','');
+        if (token) {
+            //TODO if valide token received -> logged in
+            localStorage.setItem("token", token); //store token in browser web storage
+            var page = '/user/loggedin';
+            getPage(page);
+            history.pushState(page, page, page);
+        }
+    }
 </script>

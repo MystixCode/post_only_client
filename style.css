@@ -84,6 +84,32 @@ display: inline-block;
 vertical-align:middle;
 }
 
+#characterlist{
+width: 100%;
+}
+
+#characterlist {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+}
+#characterlist li {
+    margin-bottom: 1px;
+    background-color:#444;
+}
+#characterlist li a {
+    background-color:#555;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+#characterlist li a:hover {
+  background-color: purple;
+}
 
 #mainnav {
   width: 100%;
@@ -102,7 +128,7 @@ vertical-align:middle;
 }
 
 #mainnav li a {
-  display: block;
+  display: inline-block;
   color: white;
   text-align: center;
   padding: 14px 16px;
@@ -120,8 +146,7 @@ vertical-align:middle;
  background-color: purple;
  color: white;
  padding: 14px 16px;
- font-size: 16px;
- border: none;
+ margin: 0px;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -136,7 +161,8 @@ vertical-align:middle;
  display: none;
  position: absolute;
  right: 0;
- background-color: #444;
+ background-color: #333;
+ border: 1px solid #222;
  min-width: 160px;
  z-index: 1;
 }
@@ -147,10 +173,11 @@ vertical-align:middle;
  padding: 14px 16px;
  text-decoration: none;
  display: block;
+ border: 1px solid #222;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #333;}
+.dropdown-content a:hover {background-color: purple;}
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 /* Change the background color of the dropdown button when the dropdown content is shown */

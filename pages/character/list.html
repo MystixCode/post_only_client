@@ -1,26 +1,15 @@
 <h2>Character list</h2>
 
-
-
 <script>
-
     var token = localStorage.getItem("token");
-
     if (token){
         var parsedToken = parseJWT(token)
         if (parsedToken['username']){ //IF "LOGGEDIN"
-
             //Request stuff from api
             var data = {};
             data['service'] = "character";
             data['action'] = "list";
             sendData(data); //TODO send and check token on server
-        }
-        else {
-
-            alert('not logged in - token not valid - TODO: go to login');
-
-
         }
     }
     else {
@@ -30,5 +19,27 @@
 
     function myFunction(){
     var page = '/user/login';getPage(page);history.pushState(page, page, page);
+    }
+
+    function onResponse(data){
+
+        if (data['payload']!='')
+        {
+            $("#app").html("<ul id='characterlist'></ul>");
+            //foreach item in payload
+            data['payload'].forEach ((character, index) => {
+                $("#characterlist").append("<li><a >" + character[1] + "</a><a style='float:right;'>Delete</a><a style='float:right;'>Edit</a></li>");
+            });
+        }
+
+
+
+        $("#app").append('<button type="button" onclick="myFunctionx();">Create new char.</button>');
+        //TODO!!!!!!!!!!!!!!!!!!!!!!!send data to function in character list script
+
+    }
+
+    function myFunctionx(){
+    var page = '/character/add';getPage(page);history.pushState(page, page, page);
     }
     </script>

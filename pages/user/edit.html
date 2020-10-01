@@ -1,7 +1,35 @@
-<h2>Edit_testtodo</h2>
+<h2>Edit User</h2>
 
-
+<div class="container">
+    <p>TODO: request data prefill inputs</p>
+    <form action="#" method="post" id="edituserform">
+        <label>Name</label>
+        <input type="text" name="name">
+        <label>Email</label>
+        <input type="email" name="email">
+        <label>Password</label>
+        <input type="password" name="password">
+        <label>Password2</label>
+        <input type="password" name="password2">
+        <input type="submit" name="submit" value="Submit Form">
+    </form>
+</div>
 
 <script>
+    $("#edituserform").submit(function(event) {
+        event.preventDefault(); //prevent default action
+        var data = {};
+        data['service'] = "user";
+        data['action'] = "edit";
+        data['payload'] = {};
+        data['payload']['name'] = $(this[name="name"]).val();
+        data['payload']['email'] = $(this[name="email"]).val();
+        data['payload']['password'] = $(this[name="password"]).val();
+        data['payload']['password2'] = $(this[name="password2"]).val();
+        sendData(data);
+    });
 
+    function onResponse(data) {
+        $("#app").append('onResponse(): ' + data['payload']);
+    }
 </script>
