@@ -14,15 +14,10 @@
     }
     else {
         //alert('not logged in - no token found - TODO: go to login');
-    $("#app").html( '<button type="button" onclick="myFunction()">You are not logged in! Go to login page here</button>' );
-    }
-
-    function myFunction(){
-    var page = '/user/login';getPage(page);history.pushState(page, page, page);
+        $("#app").html( '<button type="button" onclick="var page = \'/user/login\';getPage(page);history.pushState(page, page, page);">You are not logged in! Go to login page here</button>' );
     }
 
     function onResponse(data){
-
         if (data['payload']!='')
         {
             $("#app").html("<ul id='characterlist'></ul>");
@@ -31,15 +26,6 @@
                 $("#characterlist").append("<li><a >" + character[1] + "</a><a style='float:right;'>Delete</a><a style='float:right;'>Edit</a></li>");
             });
         }
-
-
-
-        $("#app").append('<button type="button" onclick="myFunctionx();">Create new char.</button>');
-        //TODO!!!!!!!!!!!!!!!!!!!!!!!send data to function in character list script
-
-    }
-
-    function myFunctionx(){
-    var page = '/character/add';getPage(page);history.pushState(page, page, page);
+        $("#app").append('<button type="button" onclick="var page = \'/character/add\';getPage(page);history.pushState(page, page, page);">Create new char.</button>');
     }
     </script>

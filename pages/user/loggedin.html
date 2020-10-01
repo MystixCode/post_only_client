@@ -6,11 +6,11 @@ var token = localStorage.getItem("token");
 if (token){
     var parsedToken = parseJWT(token)
     if (parsedToken['username']){ //IF "LOGGEDIN"
-        $('#server-results').html('Welcome ' + parsedToken['username']);
         //change Main Menu add edit user, delete user...
         $('#usernav').children('div').html("<a href='/user/edit/'>Edit</a><a href='/user/logout/'>Logout</a>");
         $('#mainnav').children('ul').append("<li><a href='/character/list/'>List character</a></li>");
-        $('#app').append("<p>Welcome " + parsedToken['username'] + "</p>");
+        $('#app').append("<p>Welcome " + parsedToken['username'] + "</p><p>TODO:if role = admin<p>");
+        $('#app').append("<p>Roles: " + parsedToken['roles'] + "<p>");
     }
     else {
         alert('not logged in - token not valid - TODO: go to login');
@@ -18,10 +18,9 @@ if (token){
 }
 else {
     //alert('not logged in - no token found - TODO: go to login');
-    $("#app").html( '<button type="button" onclick="myFunction()">You are not logged in! Go to login page here</button>' );
+    $("#app").html( '<button type="button" onclick="var page = \'/user/login\';getPage(page);history.pushState(page, page, page);">You are not logged in! Go to login page here</button>' );
+
 }
 
-function myFunction(){
-    var page = '/user/login';getPage(page);history.pushState(page, page, page);
-}
+
 </script>

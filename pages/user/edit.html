@@ -1,7 +1,6 @@
 <h2>Edit User</h2>
 
 <div class="container">
-    <p>TODO: request data prefill inputs</p>
     <form action="#" method="post" id="edituserform">
         <label>Name</label>
         <input type="text" name="name">
@@ -13,23 +12,67 @@
         <input type="password" name="password2">
         <input type="submit" name="submit" value="Submit Form">
     </form>
+    <button style="background-color:#670000;" onclick="deleteUser()">Delete User</button>
 </div>
 
 <script>
-    $("#edituserform").submit(function(event) {
-        event.preventDefault(); //prevent default action
+
+
+    var token = localStorage.getItem("token");
+    if (token) {
+
         var data = {};
         data['service'] = "user";
-        data['action'] = "edit";
-        data['payload'] = {};
-        data['payload']['name'] = $(this[name="name"]).val();
-        data['payload']['email'] = $(this[name="email"]).val();
-        data['payload']['password'] = $(this[name="password"]).val();
-        data['payload']['password2'] = $(this[name="password2"]).val();
+        data['action'] = "get";
         sendData(data);
-    });
+
+
+        $("#edituserform").submit(function(event) {
+            event.preventDefault(); //prevent default action
+            var data = {};
+            data['service'] = "user";
+            data['action'] = "edit";
+            data['payload'] = {};
+            data['payload']['name'] = $(this[name="name"]).val();
+            data['payload']['email'] = $(this[name="email"]).val();
+            data['payload']['password'] = $(this[name="password"]).val();
+            data['payload']['password2'] = $(this[name="password2"]).val();
+            sendData(data);
+        });
+
+
+
+
+
+
+    }
+    else {
+        //alert('not logged in - no token found - TODO: go to login');
+        $("#app").html( '<button type="button" onclick="var page = \'/user/login\';getPage(page);history.pushState(page, page, page);">You are not logged in! Go to login page here</button>' );
+    }
+
+
+
 
     function onResponse(data) {
-        $("#app").append('onResponse(): ' + data['payload']);
+        //if user->get
+        //if user->edit...
+
+            var payload = jQuery.parseJSON( data['payload'] );
+            if (payload['action'] == 'get')
+            {
+                $('input[name=name]').val(payload['user_name']);
+                $('input[name=email]').val(payload['user_email']);
+            }
+            if (payload['action'] == 'edit')
+            {
+                $("#app").append(data['payload']);
+            }
+
+    }
+
+    function deleteUser() {
+        //$("#app").append('delete user todo');
+        alert('TODO: delete');
     }
 </script>

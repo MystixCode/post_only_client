@@ -19,14 +19,12 @@
                 <a href='/user/register/'>Register</a>
             </div>
         </div>
-
         <nav id="mainnav">
             <ul>
                 <li><a href='/'>Home</a></li>
                 <li><a href='/about/'>About</a></li>
             </ul>
         </nav>
-
         <div id="app" ></div>
 
 
@@ -94,7 +92,7 @@
             function receiveData(data, textStatus, jqXHR) {
                 //console.log("success");
                 //console.log(data);
-                    onResponse(data, jqXHR);
+                onResponse(data, jqXHR);
             }
 
             function parseJWT (token) {
