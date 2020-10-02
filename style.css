@@ -84,22 +84,22 @@ display: inline-block;
 vertical-align:middle;
 }
 
-#characterlist{
+#characterlist, #userlist {
 width: 100%;
 }
 
-#characterlist {
+#characterlist, #userlist {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 
 }
-#characterlist li {
+#characterlist li, #userlist li {
     margin-bottom: 1px;
     background-color:#444;
 }
-#characterlist li a {
+#characterlist li a, #userlist li a {
     background-color:#555;
   display: inline-block;
   color: white;
@@ -107,7 +107,7 @@ width: 100%;
   padding: 14px 16px;
   text-decoration: none;
 }
-#characterlist li a:hover {
+#characterlistli a:hover, #userlist li a:hover {
   background-color: purple;
 }
 

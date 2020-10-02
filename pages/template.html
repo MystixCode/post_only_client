@@ -26,9 +26,8 @@
             </ul>
         </nav>
         <div id="app" ></div>
-
-
         <script>
+        //If link clicked prevent default and get page via ajax
             $(document).on('click', 'a', function(event) {
                 event.preventDefault();
                 var page = $(this).attr('href').replace(/\/$/,'');
@@ -47,8 +46,10 @@
                 getPage(page);
             });
 
-            var page = $(location).attr('pathname').replace(/\/$/,'');
-            getPage(page);
+            $( document ).ready(function() {
+                var page = $(location).attr('pathname').replace(/\/$/,'');
+                getPage(page);
+            });
 
             function getPage(page){
                 if (page == '' || page == '/') {
@@ -58,7 +59,7 @@
                     localStorage.removeItem('token');
                     window.location.href = "https://mystixgame.tk";
                 }
-                var pages = ["/home", "/about", "/user/login", "/user/register", "/user/loggedin", "/user/edit", "/character/list"];
+                var pages = ["/home", "/about", "/user/login", "/user/register", "/user/edit", "/user/list", "/character/list"];
                 if  (pages.indexOf(page) !== -1) { //if page in pages
                     $("#app").load('/pages' + page + '.html');
                 }
@@ -79,6 +80,7 @@
                         if (response.status == 401)
                         {
                             alert('error 401');
+                            //$("#app").html( '<button type="button" onclick="var page = \'/user/login\';getPage(page);history.pushState(page, page, page);">Error 401: Unauthorized,  Go to login page!</button>' );
                         }
                         else{
                             alert('Error: ' + response.status)
@@ -103,6 +105,41 @@
                 }).join(''));
                 return JSON.parse(jsonPayload);
             }
+
+            function isLoggedIn() {
+                var token = localStorage.getItem("token");
+                if (token){
+                    var parsedToken = parseJWT(token)
+                    if (parsedToken['username']){ //IF "LOGGEDIN"
+                        var unixtime = Math.round((new Date()).getTime() / 1000);
+                        if (parsedToken["exp"] > unixtime) {
+                            dateObj = new Date(parsedToken['exp'] * 1000-unixtime*1000);
+                            hours = dateObj.getUTCHours();
+                            minutes = dateObj.getUTCMinutes();
+                            seconds = dateObj.getUTCSeconds();
+                            formattedTime = hours.toString().padStart(2, '0') + 'h ' +
+                                            minutes.toString().padStart(2, '0') + 'min ' +
+                                            seconds.toString().padStart(2, '0') + 's';
+                            $("#app").append('token valid for + ' + formattedTime);
+                            addstuff(parsedToken);
+                            return parsedToken;
+                        }
+                    }
+                }
+                //alert('token invalid');
+                return false;
+            }
+
+            function addstuff(parsedToken) {
+                $('#usernav').children('div').html("<a href='/user/edit/'>Edit</a><a href='/user/logout/'>Logout</a>");
+                $('#mainnav').children('ul').html("<li><a href='/'>Home</a></li><li><a href='/about/'>About</a></li><li><a href='/character/list/'>List character</a></li>");
+                var test = parsedToken['roles'];
+                if(jQuery.inArray("admin", test) !== -1) {
+                    //alert('isAdmin');
+                    $('#mainnav').children('ul').html("<li><a href='/'>Home</a></li><li><a href='/about/'>About</a></li><li><a href='/character/list/'>List character</a></li><li><a href='/user/list/'>List User</a></li>");
+                }
+            }
+
         </script>
     </body>
 </html>

@@ -6,7 +6,6 @@
         <label>Password</label>
         <input type="password" name="password">
         <input type="submit" name="submit" value="Submit Form">
-        <div id="server-results"></div>
     </form>
 </div>
 
@@ -28,7 +27,7 @@
         if (token) {
             //TODO if valide token received -> logged in
             localStorage.setItem("token", token); //store token in browser web storage
-            var page = '/user/loggedin';
+            var page = '/';
             getPage(page);
             history.pushState(page, page, page);
         }

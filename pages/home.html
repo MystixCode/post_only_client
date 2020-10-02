@@ -1,2 +1,13 @@
 <h2>Home page</h2>
 <p>Welcome to my Webclient</p>
+<script>
+
+var parsedToken = isLoggedIn();
+if (parsedToken){
+    $('#app').append("<p>Welcome " + parsedToken['username'] + "</p>");
+}
+else {
+
+}
+
+</script>
