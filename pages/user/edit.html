@@ -1,6 +1,4 @@
 <h2>Edit User</h2>
-
-
     <form action="#" method="post" id="edituserform">
         <label>Name</label>
         <input type="text" name="name">
@@ -13,18 +11,18 @@
         <input type="submit" name="submit" value="Submit Form">
     </form>
     <button style="background-color:#670000;" onclick="deleteUser()">Delete User</button>
-
-
 <script>
+
+    function deleteUser(){
+        getPage('/user/delete');
+    }
+
     var parsedToken = isLoggedIn();
     if (parsedToken){
-
         var data = {};
         data['service'] = "user";
         data['action'] = "get";
-
         sendData(data);
-
 
         $("#edituserform").submit(function(event) {
             event.preventDefault(); //prevent default action
@@ -40,25 +38,20 @@
         });
 
     } else {
-        $("#app").html('<button type="button" onclick="var page = \'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+        $("#app").html('<button type="button" onclick="">Error Go Home</button>');
     }
 
     function onResponse(data) {
-            var payload = jQuery.parseJSON( data['payload'] );
-            if (payload['action'] == 'get')
-            {
-                $('input[name=name]').val(payload['user_name']);
-                $('input[name=email]').val(payload['user_email']);
-            }
-            if (payload['action'] == 'edit')
-            {
-                $("#app").append(data['payload']);
-            }
-
+        var payload = jQuery.parseJSON( data['payload'] );
+        if (data['action'] == 'get')
+        {
+            $('input[name=name]').val(payload['user_name']);
+            $('input[name=email]').val(payload['user_email']);
+        }
+        if (data['action'] == 'edit')
+        {
+            $("#app").append(data['payload']);
+        }
     }
-
-    function deleteUser() {
-        //$("#app").append('delete user todo');
-        alert('TODO: delete');
-    }
+    
 </script>

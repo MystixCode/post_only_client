@@ -1,0 +1,25 @@
+<h2>Delete User</h2>
+
+<script>
+    var parsedToken = isLoggedIn();
+    if (parsedToken){
+        $("#app").append('<p>Are u sure u want to delete user: </p><button style="background-color:#670000;" onclick="deleteUser()">Delete User</button>');
+    } else {
+        $("#app").html('<button type="button" onclick="">Error Go Home</button>');
+    }
+
+    function onResponse(data) {
+            if (data['action'] == 'delete')
+            {
+                $('#app').append(data['payload']);
+            }
+    }
+    function deleteUser() {
+        event.preventDefault(); //prevent default action
+        var data = {};
+        data['service'] = "user";
+        data['action'] = "delete";
+        sendData(data);
+    }
+
+</script>

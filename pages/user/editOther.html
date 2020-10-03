@@ -1,6 +1,4 @@
 <h2>Edit Other User</h2>
-
-
     <form action="#" method="post" id="edituserform">
         <label>Name</label>
         <input type="text" name="name">
@@ -13,8 +11,6 @@
         <input type="submit" name="submit" value="Submit Form">
     </form>
     <button style="background-color:#670000;" onclick="deleteUser()">Delete User</button>
-
-
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
@@ -33,10 +29,7 @@
                 payload.push(pagearr[i]);
                 //alert(pagearr[i]);
             }
-
-            data['payload']['id'] = payload[0];//TODO!!!!!!!!!!!!!!!!!new page edit and get,  rename old to editSelf, getSelf!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
+            data['payload']['id'] = payload[0];//
             sendData(data);
 
             $("#edituserform").submit(function(event) {
@@ -61,21 +54,20 @@
     }
 
     function onResponse(data) {
-            var payload = jQuery.parseJSON( data['payload'] );
-            if (payload['action'] == 'get')
-            {
-                $('input[name=name]').val(payload['user_name']);
-                $('input[name=email]').val(payload['user_email']);
-            }
-            if (payload['action'] == 'edit')
-            {
-                $("#app").append(data['payload']);
-            }
-
+        var payload = jQuery.parseJSON( data['payload'] );
+        if (data['action'] == 'getOther')
+        {
+            $('input[name=name]').val(payload['user_name']);
+            $('input[name=email]').val(payload['user_email']);
+        }
+        if (data['action'] == 'editOther')
+        {
+            $("#app").append(data['payload']);
+        }
     }
 
     function deleteUser() {
         //$("#app").append('delete user todo');
-        alert('TODO: delete');
+        alert('TODO: deleteOther user');
     }
 </script>
