@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MystixGame</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/style.css">
+    </head>
+    <body>
+    <script>
+
+        if ($("#app").length !== 0){
+            //alert('app already exist dont load template');
+        }
+        else {
+            //alert('load template');
+            var page = '/pages/template.html';
+            $("body").load(page);
+        }
+    </script>
+    </body>
+</html>

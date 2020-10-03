@@ -1,0 +1,81 @@
+<h2>Edit Other User</h2>
+
+
+    <form action="#" method="post" id="edituserform">
+        <label>Name</label>
+        <input type="text" name="name">
+        <label>Email</label>
+        <input type="email" name="email">
+        <label>Password</label>
+        <input type="password" name="password">
+        <label>Password2</label>
+        <input type="password" name="password2">
+        <input type="submit" name="submit" value="Submit Form">
+    </form>
+    <button style="background-color:#670000;" onclick="deleteUser()">Delete User</button>
+
+
+<script>
+    var parsedToken = isLoggedIn();
+    if (parsedToken){
+
+        var data = {};
+        data['service'] = "user";
+        var roles = parsedToken['roles'];
+        if(jQuery.inArray("admin", roles) !== -1) {
+            data['action'] = "getOther";
+            data['payload'] = {};
+            var path = $(location).attr('pathname');
+            path = path.replace(/^\/|\/$/g, '');
+            var pagearr = path.split('/');
+            var payload = [];
+            for (i = 2; i < pagearr.length; i++) {
+                payload.push(pagearr[i]);
+                //alert(pagearr[i]);
+            }
+
+            data['payload']['userid'] = payload[0];//TODO!!!!!!!!!!!!!!!!!new page edit and get,  rename old to editSelf, getSelf!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+            sendData(data);
+
+            $("#edituserform").submit(function(event) {
+                event.preventDefault(); //prevent default action
+                var data = {};
+                data['service'] = "user";
+                data['action'] = "editOther";
+                data['payload'] = {};
+                data['payload']['id'] = payload[0];
+                data['payload']['name'] = $(this[name="name"]).val();
+                data['payload']['email'] = $(this[name="email"]).val();
+                data['payload']['password'] = $(this[name="password"]).val();
+                data['payload']['password2'] = $(this[name="password2"]).val();
+                sendData(data);
+            });
+        }else {
+            $("#app").html('<button type="button" onclick="var page = \'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+        }
+
+    } else {
+        $("#app").html('<button type="button" onclick="var page = \'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+    }
+
+    function onResponse(data) {
+            var payload = jQuery.parseJSON( data['payload'] );
+            if (payload['action'] == 'get')
+            {
+                $('input[name=name]').val(payload['user_name']);
+                $('input[name=email]').val(payload['user_email']);
+            }
+            if (payload['action'] == 'edit')
+            {
+                $("#app").append(data['payload']);
+            }
+
+    }
+
+    function deleteUser() {
+        //$("#app").append('delete user todo');
+        alert('TODO: delete');
+    }
+</script>

@@ -1,6 +1,6 @@
 <h2>Edit User</h2>
 
-<div class="container">
+
     <form action="#" method="post" id="edituserform">
         <label>Name</label>
         <input type="text" name="name">
@@ -13,7 +13,7 @@
         <input type="submit" name="submit" value="Submit Form">
     </form>
     <button style="background-color:#670000;" onclick="deleteUser()">Delete User</button>
-</div>
+
 
 <script>
     var parsedToken = isLoggedIn();
@@ -22,6 +22,7 @@
         var data = {};
         data['service'] = "user";
         data['action'] = "get";
+
         sendData(data);
 
 
