@@ -20,11 +20,18 @@
              </ul>
          </nav>
      </div>
+
+
+
      <div class="main">
          <div id="app" ></div>
      </div>
  </div>
 <script>
+
+
+
+
     //If link clicked prevent default and get page via ajax
         $(document).on('click', 'a', function(event) {
             event.preventDefault();
@@ -79,7 +86,7 @@
             window.location.href = "https://mystixgame.tk";
         }
         //alert('service: ' + service + '\naction: ' + action  + '\npayload: ' + payload + '\npage: ' + page );
-        var pages = ["/home", "/about", "/user/login", "/user/register", "/user/edit", "/user/editOther", "/user/list", "/user/delete", "/user/deleteOther", "/character/list", "/character/create", "/character/delete"];
+        var pages = ["/home", "/about", "/user/login", "/user/register", "/user/edit", "/user/editOther", "/user/list", "/user/delete", "/user/deleteOther", "/character/list", "/character/create", "/character/delete", "/character/edit"];
         if  (pages.indexOf(page) !== -1) { //if page in pages
             $("#app").load('/pages' + page + '.html', payload);
         }
@@ -140,7 +147,7 @@
                     formattedTime = hours.toString().padStart(2, '0') + 'h ' +
                                     minutes.toString().padStart(2, '0') + 'min ' +
                                     seconds.toString().padStart(2, '0') + 's';
-                    $("#app").append('token valid for + ' + formattedTime);
+                    $("#app").append('<p>token valid for + ' + formattedTime + '</p>');
                     addstuff(parsedToken);
                     return parsedToken;
                 }

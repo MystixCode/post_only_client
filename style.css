@@ -1,23 +1,24 @@
 
 table, th, td {
-  border: 1px solid #222;
+
   border-collapse: collapse;
 }
 th, td {
+    border: 1px solid #333;
   padding: 5px;
 }
 th {
   text-align: left;
-  background-color: #222;
+  background-color: #333;
 }
 td {
-  background-color: #333;
+  background-color: #444;
 }
 
 /*## GRID ################################*/
-.header { grid-area: header; background-color: #111; }
-.menu { grid-area: menu; background-color: #222;}
-.main { grid-area: main; background-color: #111;}
+.header { grid-area: header; background-color: #222; }
+.menu { grid-area: menu; background-color: #333;}
+.main { grid-area: main; background-color: #222;}
 
 .grid-container {
   display: grid;
@@ -39,7 +40,7 @@ td {
   margin: 0;
 }
 body {
-  background-color: #111;
+  background-color: #222;
   color: white;
 }
 input,
@@ -107,7 +108,7 @@ li a:hover {
 
 #mainnav li {
   float: left;
-  background-color: #222;
+  background-color: #333;
 }
 
 #userlist li, #characterlist li{
@@ -147,3 +148,56 @@ li a:hover {
 .dropdown-content a:hover {background-color: purple;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: darkmagenta;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    display: block;
+    margin-top: 5px;
+  }
+
+  table td {
+    /*border-bottom: 1px solid #ddd;*/
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+
+  table td::before {
+    content: attr(data-label);
+
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+}

@@ -14,10 +14,12 @@
         if (data['payload']!='')
         {
             var payload = jQuery.parseJSON( data['payload'] );
-            $("#app").append("<table id ='characterlist' style='width:100%;margin-bottom:10px;'><tr><th>id</th><th>name</th><th>edit</th><th>delete</th></tr></table>");
+            $("#app").append("<table id ='characterlist' style='width:100%;margin-bottom:10px;'><thead><tr><th>id</th><th>name</th><th>edit</th><th>delete</th></tr></thead></table>");
+            $("#userlist").append('<tbody>');
             payload.forEach ((character, index) => {
-                $("#characterlist").append("<tr><td>" + character['character_id'] + "</td><td><a >" + character['character_name'] + "</a></td><td><a href='/character/edit/" + character['character_id'] + "' >Edit</a></td><td><a href='/character/delete/" + character['character_id'] + "' >Delete</a></td></tr>");
+                $("#characterlist").append("<tr><td data-label='id'>" + character['character_id'] + "</td><td data-label='name'><a >" + character['character_name'] + "</a></td><td><a href='/character/edit/" + character['character_id'] + "' >Edit</a></td><td><a href='/character/delete/" + character['character_id'] + "' >Delete</a></td></tr>");
             });
+            $("#userlist").append('</tbody>');
         }
         $("#app").append('<button type="button" onclick="var page = \'/character/create\';getPage(page);history.pushState(page, page, page);">Create new char.</button>');
     }
