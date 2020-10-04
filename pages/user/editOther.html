@@ -10,7 +10,6 @@
         <input type="password" name="password2">
         <input type="submit" name="submit" value="Submit Form">
     </form>
-    <button style="background-color:#670000;" onclick="deleteUser()">Delete User</button>
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
@@ -62,12 +61,8 @@
         }
         if (data['action'] == 'editOther')
         {
-            $("#app").append(data['payload']);
+            $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
         }
     }
 
-    function deleteUser() {
-        //$("#app").append('delete user todo');
-        alert('TODO: deleteOther user');
-    }
 </script>

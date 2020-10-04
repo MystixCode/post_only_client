@@ -11,7 +11,7 @@
     function onResponse(data) {
             if (data['action'] == 'deleteOther')
             {
-                $('#app').append(data['payload']);
+                $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
             }
     }
     function deleteOtherUser() {

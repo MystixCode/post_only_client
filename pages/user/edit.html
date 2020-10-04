@@ -52,7 +52,7 @@
         }
         if (data['action'] == 'edit')
         {
-            $("#app").append(data['payload']);
+            $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
         }
     }
 

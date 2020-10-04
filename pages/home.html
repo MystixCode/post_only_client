@@ -1,10 +1,12 @@
 <h2>Home</h2>
 <a href='/about'>About link</a>
-<p>TODO only layout here get content from api</p>
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
-        $('#app').append("<p>Welcome " + parsedToken['username'] + "</p>");
+
+        $('#status').html("<p>Welcome " + parsedToken['username'] + "</p>").fadeIn(setTimeout(fade_out, 10000));
+        $('#app').append("<p>TODO: Loggedin. Request content</p>").fadeIn(setTimeout(fade_out, 10000));
+
     }
     else {
 

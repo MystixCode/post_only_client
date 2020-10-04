@@ -44,12 +44,14 @@
         var payload = jQuery.parseJSON( data['payload'] );
         if (data['action'] == 'get')
         {
-            $("#app").append(data['payload']);
+
+            $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+
             $('input[name=name]').val(payload['character_name']);
         }
         if (data['action'] == 'edit')
         {
-            $("#app").append(data['payload']);
+            $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
         }
     }
 
