@@ -5,7 +5,7 @@
     if (parsedToken){
         $("#app").append('<p>Are u sure u want to delete user: </p><button style="background-color:#670000;" onclick="deleteUser()">Delete User</button>');
     } else {
-        $("#app").html('<button type="button" onclick="">Error Go Home</button>');
+        $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
 
     function onResponse(data) {

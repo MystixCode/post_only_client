@@ -1,0 +1,28 @@
+<h2>Create Character</h2>
+    <form action="#" method="post" id="createcharacterform">
+        <label>Name</label>
+        <input type="text" name="name">
+        <input type="submit" name="submit" value="Submit Form">
+    </form>
+<p>todo only layout here no content or title</p>
+<script>
+
+
+
+
+
+    $("#createcharacterform").submit(function(event) {
+        event.preventDefault(); //prevent default action
+        var data = {};
+        data['service'] = "character";
+        data['action'] = "create";
+        data['payload'] = {};
+        data['payload']['name'] = $(this[name="name"]).val();
+        sendData(data);
+    });
+
+  function onResponse(data){
+      $("#app").append(data['payload']);
+      //TODO!!!!!!!!!!!!!!!!!!!!!!!send data to function in character list script
+  }
+</script>

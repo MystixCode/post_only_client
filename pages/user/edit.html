@@ -14,7 +14,9 @@
 <script>
 
     function deleteUser(){
-        getPage('/user/delete');
+        var page='/user/delete';
+        getPage(page);
+        history.pushState(page, page, page);
     }
 
     var parsedToken = isLoggedIn();
@@ -38,7 +40,7 @@
         });
 
     } else {
-        $("#app").html('<button type="button" onclick="">Error Go Home</button>');
+        $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
 
     function onResponse(data) {
@@ -53,5 +55,5 @@
             $("#app").append(data['payload']);
         }
     }
-    
+
 </script>

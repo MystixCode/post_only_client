@@ -79,7 +79,7 @@
             window.location.href = "https://mystixgame.tk";
         }
         //alert('service: ' + service + '\naction: ' + action  + '\npayload: ' + payload + '\npage: ' + page );
-        var pages = ["/home", "/about", "/user/login", "/user/register", "/user/edit", "/user/editOther", "/user/list", "/user/delete", "/character/list"];
+        var pages = ["/home", "/about", "/user/login", "/user/register", "/user/edit", "/user/editOther", "/user/list", "/user/delete", "/user/deleteOther", "/character/list", "/character/create", "/character/delete"];
         if  (pages.indexOf(page) !== -1) { //if page in pages
             $("#app").load('/pages' + page + '.html', payload);
         }
