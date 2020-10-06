@@ -15,10 +15,18 @@ td {
   background-color: #444;
 }
 
+.alignright{
+        text-align: right;
+        width: 60px;
+
+}
+
+
+
 /*## GRID ################################*/
 .header { grid-area: header; background-color: #222; }
 .menu { grid-area: menu; background-color: #333;}
-.status{ grid-area: status; background-color: green;}
+.status{ grid-area: status; background-color: #4CAF50;}
 .main { grid-area: main; background-color: #222;}
 
 .grid-container {
@@ -57,12 +65,12 @@ button {
 }
 
 button, input[type=submit] {
-    background-color: #4CAF50;
+    background-color: #57008a;
     color: white;
     cursor: pointer;
 }
 button:hover, input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #6900a5;
 }
 
 a {
@@ -115,7 +123,7 @@ li a:hover {
 
 /*## Dropdown Button ################################*/
 .dropbtn {
- background-color: purple;
+ background-color: #57008a;
  color: white;
  padding: 14px 16px;
  margin: 0px;
@@ -143,9 +151,9 @@ li a:hover {
  border: 1px solid #222;
 }
 
-.dropdown-content a:hover {background-color: purple;}
+.dropdown-content a:hover {background-color: #57008a;}
 .dropdown:hover .dropdown-content {display: block;}
-.dropdown:hover .dropbtn {background-color: darkmagenta;}
+.dropdown:hover .dropbtn {background-color: #6900a5;}
 
 
 
@@ -188,6 +196,7 @@ li a:hover {
     display: block;
     font-size: .8em;
     text-align: right;
+    width: 100%!important;
   }
 
   table td::before {
@@ -199,7 +208,6 @@ li a:hover {
   }
 
 }
-
 
 
 
@@ -239,10 +247,13 @@ li a:hover {
 }
 
 .topnav a.active {
-  background-color: #4CAF50;
+  background-color: #57008a; /* #57008a #6900a5 */
   color: white;
 }
-
+.topnav a.active:hover {
+  background-color: #6900a5; /* #57008a #6900a5 */
+  color: white;
+}
 .topnav .icon {
   display: none;
 }

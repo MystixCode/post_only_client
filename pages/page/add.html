@@ -1,0 +1,75 @@
+<h2>Add new page</h2>
+
+    <form action="#" method="post" id="addpageform">
+        <label>Name</label>
+        <input type="text" name="name">
+        <label>Path (/user/login)</label>
+        <input type="text" name="path">
+        <label>Content</label>
+        <textarea name="content" style="display:block;width:100%;" rows="16" cols="100">
+<h2>Templatepage</h2>
+<h3>Select user by id</h3>
+<form action="#" method="post" id="templateform">
+    <label>Id</label>
+    <input type="text" name="id">
+    <input type="submit" name="submit" value="Submit Form">
+</form>
+
+<script>
+    var parsedToken = isLoggedIn();
+    if (parsedToken){
+        var roles = parsedToken['roles'];
+        if(jQuery.inArray("admin", roles) !== -1) {
+            $("#templateform").submit(function(event) {
+                event.preventDefault(); //prevent default action
+                var data = {};
+                data['service'] = "user";
+                data['action'] = "getOther";
+                data['payload'] = {};
+                data['payload']['id'] = $(this[name="id"]).val();
+                sendData(data);
+            });
+        } else {
+            $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+        }
+
+    } else {
+        $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+    }
+
+    function onResponse(data){
+        $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+    }
+</script>
+        </textarea>
+        <input type="submit" name="submit" value="Submit Form">
+    </form>
+
+<script>
+    var parsedToken = isLoggedIn();
+    if (parsedToken){
+        var roles = parsedToken['roles'];
+        if(jQuery.inArray("admin", roles) !== -1) {
+            $("#addpageform").submit(function(event) {
+                event.preventDefault(); //prevent default action
+                var data = {};
+                data['service'] = "page";
+                data['action'] = "add";
+                data['payload'] = {};
+                data['payload']['page_name'] = $(this[name="name"]).val();
+                data['payload']['page_path'] = $(this[name="path"]).val();
+                data['payload']['page_content'] = $(this[name="content"]).val();
+                sendData(data);
+            });
+        } else {
+            $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+        }
+
+    } else {
+        $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+    }
+
+    function onResponse(data){
+        $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+    }
+</script>

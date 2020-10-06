@@ -28,6 +28,11 @@
      </div>
  </div>
 <script>
+
+
+
+
+
     function menuToggle() {
       var x = document.getElementById("myTopnav");
       if (x.className === "topnav") {
@@ -43,15 +48,27 @@
     }
 
 
+
+
+
     //If link clicked prevent default and get page via ajax
         $(document).on('click', 'a', function(event) {
             event.preventDefault();
+
+
             var page = $(this).attr('href').replace(/\/$/,'');
             getPage(page);
             if (page == '') {
                 page = '/';
             }
             history.pushState(page, page, page);
+
+
+            $("#myTopnav > a").removeClass('active')
+            $(this).addClass('active');
+
+
+
         });
 
         // Revert to a previously saved browser history state
@@ -97,17 +114,21 @@
             window.location.href = "https://mystixgame.tk";
         }
         //alert('service: ' + service + '\naction: ' + action  + '\npayload: ' + payload + '\npage: ' + page );
-        var pages = ["/home", "/about", "/user/login", "/user/register", "/user/edit", "/user/editOther", "/user/list", "/user/delete", "/user/deleteOther", "/character/list", "/character/create", "/character/delete", "/character/edit"];
-        if  (pages.indexOf(page) !== -1) { //if page in pages
+        //var pages = ["/home", "/about", "/user/login", "/user/register", "/user/edit", "/user/editOther", "/user/list", "/user/delete", "/user/deleteOther", "/character/list", "/character/create", "/character/delete", "/character/edit", "/page/add"];
+    //    if  (pages.indexOf(page) !== -1) { //if page in pages
             $("#app").load('/pages' + page + '.html', payload);
-        }
+    //    }
     }
 
     function sendData(data) {
         var jsondata = JSON.stringify(data);
         var token = localStorage.getItem("token");
+        var authheader = false;
+        if (token){
+            authheader = {'Authorization':'Bearer ' + token};
+        }
         return $.ajax({
-            headers: {'Authorization':'Bearer ' + token},
+            headers: authheader,
             type: "POST",
             url : "https://api.mystixgame.tk",
             contentType: "application/json",
@@ -171,18 +192,17 @@
     function addstuff(parsedToken) {
         $('#usernav').children('div').html("<a href='/user/edit/'>Edit</a><a href='/user/logout/'>Logout</a>");
 
+        if ($('#myTopnav').children('a').length > 3){
 
-
+        }
+        else{
 
             $('#myTopnav').html("<a href='/'  class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character List</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
             var test = parsedToken['roles'];
             if(jQuery.inArray("admin", test) !== -1) {
                 //alert('isAdmin');
-                $('#myTopnav').html("<a href='/' class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character List</a><a href='/user/list/'>List User</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
-
-
+                $('#myTopnav').html("<a href='/' class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character List</a><a href='/user/list/'>List User</a><a href='/page/add/'>Add Page</a><a href='/service/add/'>Add Service</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
+            }
         }
-
-
     }
 </script>

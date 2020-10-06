@@ -1,0 +1,55 @@
+<h2>Add new service</h2>
+<form action="#" method="post" id="addserviceform">
+    <label>Name</label>
+    <input type="text" name="name">
+    <label>Actions</label>
+    <br>
+    <input id="addInput" type="text" name="action" style="float:left;width:90%">
+    <button id="addAction" style="width:10%;">Add</button>
+    <ul id="actionlist"></ul>
+    <br>
+    <input type="submit" name="submit" value="Submit Form">
+</form>
+
+<script>
+    var parsedToken = isLoggedIn();
+    if (parsedToken){
+        var roles = parsedToken['roles'];
+        if(jQuery.inArray("admin", roles) !== -1) {
+            
+            $("#addserviceform").submit(function(event) {
+                event.preventDefault(); //prevent default action
+                 var data = {};
+                 data['service'] = "service";
+                 data['action'] = "add";
+                 data['payload'] = {};
+                 data['payload']['service_name'] = $(this[name="name"]).val();
+                 var actions = [];
+                 $('#actionlist li').each(function(i){
+                    actions.push($(this).text()); // This is your rel value
+                 });
+                 data['payload']['service_actions'] =  actions;
+                 sendData(data);
+            });
+
+            $("#addAction").click(function(event) {
+                   event.preventDefault();
+                   if ($('#addserviceform > input[name="action"]').val() !=='')
+                   {
+                       $("#actionlist").append('<li>' + $('#addserviceform > input[name="action"]').val() + '<a style="text-alignt:right;" onclick="event.preventDefault();$(this).parent().empty();"><i class="fa fa-trash"></i></a></li>');
+                   }
+               });
+
+        } else {
+            $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+        }
+
+    } else {
+        $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+    }
+
+    function onResponse(data){
+        $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+    }
+
+</script>
