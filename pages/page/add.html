@@ -14,7 +14,6 @@
     <input type="text" name="id">
     <input type="submit" name="submit" value="Submit Form">
 </form>
-
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
@@ -70,6 +69,6 @@
     }
 
     function onResponse(data){
-        $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+        $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
     }
 </script>

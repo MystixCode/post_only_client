@@ -28,68 +28,50 @@
      </div>
  </div>
 <script>
-
-
-
-
-
-    function menuToggle() {
-      var x = document.getElementById("myTopnav");
-      if (x.className === "topnav") {
-        x.className += " responsive";
-      } else {
-        x.className = "topnav";
-      }
-    }
-
-
-    function fade_out() {
-      $("#status").fadeOut();
-    }
-
-
-
-
-
     //If link clicked prevent default and get page via ajax
-        $(document).on('click', 'a', function(event) {
-            event.preventDefault();
+    $(document).on('click', 'a', function(event) {
+        event.preventDefault();
+        var page = $(this).attr('href').replace(/\/$/,'');
+        getPage(page);
+        if (page == '') {
+            page = '/';
+        }
+        history.pushState(page, page, page);
+        $("#myTopnav > a").removeClass('active')
+        $(this).addClass('active');
+    });
 
-
-            var page = $(this).attr('href').replace(/\/$/,'');
-            getPage(page);
-            if (page == '') {
-                page = '/';
-            }
-            history.pushState(page, page, page);
-
-
-            $("#myTopnav > a").removeClass('active')
-            $(this).addClass('active');
-
-
-
-        });
-
-        // Revert to a previously saved browser history state
-        window.addEventListener('popstate', function(event) {
-            //alert('popstate fired!');
-            console.log(event.state);
-            var page =event.state;
-            if (page == null) {
-                page = '/';
-            }
-            getPage(page);
-            //TODO go back or forward in history
-            //history.go(-1);
-            //history.pushState(page, page, page);
-        });
-
+    // Revert to a previously saved browser history state
+    window.addEventListener('popstate', function(event) {
+        //alert('popstate fired!');
+        console.log(event.state);
+        var page =event.state;
+        if (page == null) {
+            page = '/';
+        }
+        getPage(page);
+        //TODO go back or forward in history
+        //history.go(-1);
+        //history.pushState(page, page, page);
+    });
 
     $( document ).ready(function() {
         var page = $(location).attr('pathname');
         getPage(page);
     });
+
+    function menuToggle() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+
+    function fade_out() {
+      $("#status").fadeOut();
+    }
 
     function getPage(page){ //expects a page like: /service/action/payload1/payload2/payload3...
         page = page.replace(/^\/|\/$/g, '');
@@ -195,13 +177,12 @@
         if ($('#myTopnav').children('a').length > 3){
 
         }
-        else{
-
+        else {
             $('#myTopnav').html("<a href='/'  class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character List</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
             var test = parsedToken['roles'];
             if(jQuery.inArray("admin", test) !== -1) {
                 //alert('isAdmin');
-                $('#myTopnav').html("<a href='/' class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character List</a><a href='/user/list/'>List User</a><a href='/page/add/'>Add Page</a><a href='/service/add/'>Add Service</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
+                $('#myTopnav').html("<a href='/' class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character List</a><a href='/user/list/'>List User</a><a href='/page/add/'>Add Page</a><a href='/service/add/'>Add Service</a><a href='/user/listAllPermission/'>List permission</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
             }
         }
     }

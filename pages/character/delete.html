@@ -14,11 +14,16 @@
     }
 
     function onResponse(data) {
+            var payload = data['payload'];
             if (data['action'] == 'delete')
             {
-                $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+                $("#status").html('<p>' + payload['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+                var page = '/character/list';
+                getPage(page);
+                history.pushState(page, page, page);
             }
     }
+    
     function deleteCharacter() {
         event.preventDefault(); //prevent default action
         var data = {};
@@ -33,5 +38,4 @@
         data['payload']['character_id'] = payload[0];
         sendData(data);
     }
-
 </script>

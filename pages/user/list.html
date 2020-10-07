@@ -18,11 +18,11 @@
     function onResponse(data){
         if (data['payload']!='')
         {
-            var payload = jQuery.parseJSON( data['payload'] );
+            var payload = data['payload'];
             $("#app").append("<table id ='userlist' style='width:100%;margin-bottom:10px;'><thead><tr><th>id</th><th>name</th><th>email</th><th>roles</th><th class='alignright'>edit</th><th class='alignright'>delete</th></tr></thead></table>");
             //foreach item in payload
             $("#userlist").append('<tbody>');
-            payload['payload'].forEach ((user, index) => {
+            payload.forEach ((user, index) => {
 
                 $("#userlist").append("<tr><td data-label='id'>" + user['user_id'] + "</td><td data-label='name'>" + user['user_name'] + "</td><td data-label='email'>" + user['user_email'] + "</td><td data-label='roles'>" + user['user_roles'] + "</td><td class='alignright'><a href='/user/editOther/" + user['user_id'] + "' ><i class='fa fa-edit'></i></a></td><td class='alignright'><a href='/user/deleteOther/" + user['user_id'] + "' ><i class='fa fa-trash'></i></a></td></tr>");
             });

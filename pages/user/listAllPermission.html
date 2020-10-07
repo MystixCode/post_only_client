@@ -1,0 +1,74 @@
+<h2>Permission list</h2>
+<script>
+    var parsedToken = isLoggedIn();
+    if (parsedToken){
+        //if admin role -> Request stuff from api
+        var test = parsedToken['roles'];
+        if(jQuery.inArray("admin", test) !== -1) {
+
+            var data = {};
+            data['service'] = "user";
+            data['action'] = "listAllPermission";
+            sendData(data);
+        }
+    }
+    else {
+        $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
+    }
+
+    function onResponse(data){
+        if (data['payload']!='' && data['payload']!='[]' && data['payload']!=null)
+        {
+            var payload = data['payload'] ;
+            $("#app").append("<table id ='permissionlist' style='width:100%;margin-bottom:10px;'></table>");
+            //foreach item in payload
+            $("#permissionlist").append('<thead><tr><th>Permission</th></tr></thead><tbody></tbody>');
+            var thead = [];
+            payload.forEach ((permission, index) => {
+                permission['roles'].forEach ((role, index) => {
+                    if(jQuery.inArray(role, thead) == -1)
+                    {
+                        thead.push(role);
+                    }
+                });
+            });
+
+            //foreach thead item -> table head append
+            thead.forEach ((item, index) => {
+                $("#permissionlist > thead > tr").append('<th>' + item + '</th>');
+            });
+
+            //foreach permission -> table body append
+            payload.forEach ((permission, index) => {
+                $("#permissionlist > tbody").append("<tr><td data-label='permission_name'>" + permission['permission_name'] + "</td></tr>");
+                thead.forEach ((item, index2) => {
+                    if(jQuery.inArray(item, permission['roles']) < 0) {
+                        $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="cb_role_' + item + '"><input type="checkbox"></td>');
+                    }
+                    else{
+                        $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="cb_role_' + item + '"><input type="checkbox" checked></td>');
+                    }
+                });
+            });
+                $('#app').append('<button onclick="editAllPermission()">Save</button>');
+        }
+    }
+
+    function editAllPermission(){
+        alert('TODO editAllPermission');
+        //TODO create array with dat
+        var data = {};
+        data['service'] = "user";
+        data['action'] = "editAllPermission";
+        data['payload'] = {};
+        //data['payload'][] ;
+        //TODO: aktuelli baustell!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //TODO data['payload'] korrekt fülla  mit data usem $(#permissionlist > tbody')
+        //data['payload']['permission_name'] = $TODO_
+        //data['payload']['roles'] = TODO
+        //data['payload']['id'] = $(this[name="id"]).val();
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        sendData(data);
+    }
+
+    </script>

@@ -44,7 +44,7 @@
     }
 
     function onResponse(data) {
-        var payload = jQuery.parseJSON( data['payload'] );
+        var payload = data['payload'];
         if (data['action'] == 'get')
         {
             $('input[name=name]').val(payload['user_name']);
@@ -52,7 +52,10 @@
         }
         if (data['action'] == 'edit')
         {
-            $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+            $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+            var page = '/';
+            getPage(page);
+            history.pushState(page, page, page);
         }
     }
 

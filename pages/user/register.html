@@ -27,7 +27,9 @@
     });
 
   function onResponse(data){
-      $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
-      //TODO!!!!!!!!!!!!!!!!!!!!!!!send data to function in character list script
+      $("#status").append(data['payload']['message']).fadeIn(setTimeout(fade_out, 10000));
+      var page = '/';
+      getPage(page);
+      history.pushState(page, page, page);
   }
 </script>
