@@ -1,5 +1,4 @@
 <h2>Delete Character</h2>
-
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
@@ -8,7 +7,6 @@
         var pagearr = path.split('/');
         var char_id=pagearr[2];
         $("#app").append('<p>Are u sure u want to delete character id: '+char_id+'</p><button style="background-color:#670000;" onclick="deleteCharacter()">Delete Character</button>');
-
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
