@@ -13,7 +13,6 @@
     function onResponse(data){
         if (data['payload']!='' && data['payload']!='[]')
         {
-            //alert(JSON.stringify(data));
             var payload = data['payload'] ;
             $("#app").append("<table id ='characterlist' style='width:100%;margin-bottom:10px;'><thead><tr><th>id</th><th>name</th><th class='alignright'>edit</th><th class='alignright'>delete</th></tr></thead></table>");
             $("characterlist").append('<tbody>');

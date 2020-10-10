@@ -6,15 +6,12 @@
         </fieldset>
         <input type="submit" name="submit" value="Submit Form">
     </form>
-<p>todo only layout here no content or title</p>
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
-
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
-
     $("#createcharacterform").submit(function(event) {
         event.preventDefault(); //prevent default action
         var payload = {};

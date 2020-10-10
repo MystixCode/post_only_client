@@ -30,7 +30,6 @@
     var parsedToken = isLoggedIn();
     if (parsedToken){
         sendData('user', 'get');
-
         $("#edituserform").submit(function(event) {
             event.preventDefault(); //prevent default action
             var payload = {};
@@ -40,7 +39,6 @@
             payload['password2'] = $(this[name="password2"]).val();
             sendData('user', 'edit', payload);
         });
-
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }

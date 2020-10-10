@@ -21,27 +21,18 @@
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
-
-
         var roles = parsedToken['roles'];
         if(jQuery.inArray("admin", roles) !== -1) {
-
             var payload = {};
             var path = $(location).attr('pathname');
             path = path.replace(/^\/|\/$/g, '');
             var pagearr = path.split('/');
-            var pl = [];
-            for (i = 2; i < pagearr.length; i++) {
-                pl.push(pagearr[i]);
-                //alert(pagearr[i]);
-            }
-            payload['id'] = pl[0];//
+            payload['id'] = pagearr[2];
             sendData('user', 'getOther', payload);
-
             $("#edituserform").submit(function(event) {
                 event.preventDefault(); //prevent default action
                 var payload = {};
-                payload['id'] = pl[0];
+                payload['id'] = pagearr[2];
                 payload['name'] = $(this[name="name"]).val();
                 payload['email'] = $(this[name="email"]).val();
                 payload['password'] = $(this[name="password"]).val();
@@ -51,7 +42,6 @@
         }else {
             $("#app").html('<button type="button" onclick="var page = \'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
         }
-
     } else {
         $("#app").html('<button type="button" onclick="var page = \'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }

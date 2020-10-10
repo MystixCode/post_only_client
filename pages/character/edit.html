@@ -7,18 +7,14 @@
         <input type="submit" name="submit" value="Submit Form">
     </form>
 <script>
-
     var parsedToken = isLoggedIn();
     if (parsedToken){
         var payload = {};
         var path = $(location).attr('pathname');
         path = path.replace(/^\/|\/$/g, '');
         var pagearr = path.split('/');
-
         payload['character_id'] = pagearr[2];//
         sendData('character', 'get', payload);
-
-
         $("#editcharacterform").submit(function(event) {
             event.preventDefault(); //prevent default action
             var payload = {};
@@ -26,7 +22,6 @@
             payload['character_name'] = $(this[name="name"]).val();
             sendData('character', 'edit', payload);
         });
-
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
@@ -35,7 +30,6 @@
         var payload = data['payload'];
         if (data['action'] == 'get')
         {
-            //$("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
             $('input[name=name]').val(payload['character_name']);
         }
         if (data['action'] == 'edit')

@@ -8,13 +8,13 @@
     }
 
     function onResponse(data) {
-            if (data['action'] == 'delete')
-            {
-                $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
-                var page = '/';
-                getPage(page);
-                history.pushState(page, page, page);
-            }
+        if (data['action'] == 'delete')
+        {
+            $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+            var page = '/';
+            getPage(page);
+            history.pushState(page, page, page);
+        }
     }
 
     function deleteUser() {

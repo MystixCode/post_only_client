@@ -13,13 +13,11 @@
     </fieldset>
     <input type="submit" name="submit" value="Submit Form">
 </form>
-
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
         var roles = parsedToken['roles'];
         if(jQuery.inArray("admin", roles) !== -1) {
-
             $("#addserviceform").submit(function(event) {
                 event.preventDefault(); //prevent default action
                  var payload = {};
@@ -31,7 +29,6 @@
                  payload['service_actions'] =  actions;
                  sendData('service', 'add', payload);
             });
-
             $("#addAction").click(function(event) {
                    event.preventDefault();
                    if ($('#addserviceform > input[name="action"]').val() !=='')
@@ -39,11 +36,9 @@
                        $("#actionlist").append('<li>' + $('#addserviceform > fieldset > input[name="action"]').val() + '<a style="text-alignt:right;" onclick="event.preventDefault();$(this).parent().empty();"><i class="fa fa-trash"></i></a></li>');
                    }
                });
-
         } else {
             $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
         }
-
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }

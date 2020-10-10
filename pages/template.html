@@ -42,7 +42,7 @@
         $(this).addClass('active');
     });
 
-    // Revert to a previously saved browser history state
+    // browser back / forward
     window.addEventListener('popstate', function(event) {
         //alert('popstate fired!');
         console.log(event.state);
@@ -96,20 +96,14 @@
             localStorage.removeItem('token');
             window.location.href = "https://mystixgame.tk";
         }
-        //alert('service: ' + service + '\naction: ' + action  + '\npayload: ' + payload + '\npage: ' + page );
-        //var pages = ["/home", "/about", "/user/login", "/user/register", "/user/edit", "/user/editOther", "/user/list", "/user/delete", "/user/deleteOther", "/character/list", "/character/create", "/character/delete", "/character/edit", "/page/add"];
-    //    if  (pages.indexOf(page) !== -1) { //if page in pages
-            $("#app").load('/pages' + page + '.html', payload);
-    //    }
+        $("#app").load('/pages' + page + '.html', payload);
     }
 
-    //TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     function sendData(service, action, payload = null) {
         var data = {};
         data['service'] = service
         data['action'] = action;
         data['payload'] = payload;
-    //function sendData(data) {
         var jsondata = JSON.stringify(data);
         var token = localStorage.getItem("token");
         var authheader = false;

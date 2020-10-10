@@ -20,7 +20,7 @@
     </form>
 <script>
     $("#registerform").submit(function(event) {
-        event.preventDefault(); //prevent default action
+        event.preventDefault();
         var payload = {};
         payload['name'] = $(this[name="name"]).val();
         payload['email'] = $(this[name="email"]).val();

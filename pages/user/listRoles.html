@@ -1,5 +1,4 @@
 <h2>Roles list</h2>
-
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
@@ -8,13 +7,8 @@
             var path = $(location).attr('pathname');
             path = path.replace(/^\/|\/$/g, '');
             var pagearr = path.split('/');
-            var pl = [];
-            for (i = 2; i < pagearr.length; i++) {
-                pl.push(pagearr[i]);
-                //alert(pagearr[i]);
-            }
             var payload = {}
-            payload['id'] = pl[0];//
+            payload['id'] = pagearr[2];//
             sendData('user', 'listRoles', payload);
         } else {
             $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
@@ -26,7 +20,6 @@
     function onResponse(data){
         if (data['payload']!='' && data['payload']!='[]')
         {
-            //alert(JSON.stringify(data));
             var payload = data['payload'] ;
             $("#app").append("<table id ='rolelist' style='width:100%;margin-bottom:10px;'><thead><tr><th>id</th><th>name</th><th class='alignright'>edit</th><th class='alignright'>delete</th></tr></thead></table>");
             $("#rolelist").append('<tbody>');
@@ -36,6 +29,5 @@
             $("#rolelist").append('</tbody>');
         }
         $("#app").append('<button type="button" onclick="var page = \'/user/addRole\';getPage(page);history.pushState(page, page, page);">Add new role</button>');
-
     }
 </script>

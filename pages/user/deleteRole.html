@@ -12,13 +12,13 @@
     }
 
     function onResponse(data) {
-            if (data['action'] == 'deleteRole')
-            {
-                $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
-                var page = '/user/listRoles';
-                getPage(page);
-                history.pushState(page, page, page);
-            }
+        if (data['action'] == 'deleteRole')
+        {
+            $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+            var page = '/user/listRoles';
+            getPage(page);
+            history.pushState(page, page, page);
+        }
     }
 
     function deleteRole() {

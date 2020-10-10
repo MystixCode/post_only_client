@@ -9,13 +9,13 @@
     }
 
     function onResponse(data) {
-            if (data['action'] == 'deleteOther')
-            {
-                $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
-                var page = '/user/list';
-                getPage(page);
-                history.pushState(page, page, page);
-            }
+        if (data['action'] == 'deleteOther')
+        {
+            $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+            var page = '/user/list';
+            getPage(page);
+            history.pushState(page, page, page);
+        }
     }
 
     function deleteOtherUser() {

@@ -1,5 +1,4 @@
 <h2>Add new page</h2>
-
     <form action="#" method="post" id="addpageform">
         <fieldset>
             <legend>Name</legend>
@@ -15,7 +14,6 @@
         </fieldset>
         <input type="submit" name="submit" value="Submit Form">
     </form>
-
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
@@ -32,7 +30,6 @@
         } else {
             $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
         }
-
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }

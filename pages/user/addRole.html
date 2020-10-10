@@ -9,11 +9,9 @@
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
-
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
-
     $("#addroleform").submit(function(event) {
         event.preventDefault(); //prevent default action
         var payload = {};
