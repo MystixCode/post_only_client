@@ -1,38 +1,30 @@
 <h2>Edit Character</h2>
     <form action="#" method="post" id="editcharacterform">
-        <label>Name</label>
-        <input type="text" name="name">
+        <fieldset>
+            <legend>Name</legend>
+            <input type="text" name="name">
+        </fieldset>
         <input type="submit" name="submit" value="Submit Form">
     </form>
 <script>
 
     var parsedToken = isLoggedIn();
     if (parsedToken){
-        var data = {};
-        data['service'] = "character";
-        data['action'] = "get";
-        data['payload'] = {};
+        var payload = {};
         var path = $(location).attr('pathname');
         path = path.replace(/^\/|\/$/g, '');
         var pagearr = path.split('/');
-        var payload = [];
-        for (i = 2; i < pagearr.length; i++) {
-            payload.push(pagearr[i]);
-            //alert(pagearr[i]);
-        }
-        data['payload']['character_id'] = payload[0];//
-        sendData(data);
+
+        payload['character_id'] = pagearr[2];//
+        sendData('character', 'get', payload);
 
 
         $("#editcharacterform").submit(function(event) {
             event.preventDefault(); //prevent default action
-            var data = {};
-            data['service'] = "character";
-            data['action'] = "edit";
-            data['payload'] = {};
-            data['payload']['character_id'] = payload[0];
-            data['payload']['character_name'] = $(this[name="name"]).val();
-            sendData(data);
+            var payload = {};
+            payload['character_id'] = pagearr[2];
+            payload['character_name'] = $(this[name="name"]).val();
+            sendData('character', 'edit', payload);
         });
 
     } else {

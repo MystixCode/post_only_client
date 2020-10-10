@@ -16,12 +16,9 @@
                 history.pushState(page, page, page);
             }
     }
-    
+
     function deleteUser() {
         event.preventDefault(); //prevent default action
-        var data = {};
-        data['service'] = "user";
-        data['action'] = "delete";
-        sendData(data);
+        sendData('user', 'delete');
     }
 </script>

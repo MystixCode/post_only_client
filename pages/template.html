@@ -13,18 +13,19 @@
         </div>
     </div>
     <div class="menu">
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <div class="topnav" id="myTopnav">
             <a href="/" class="active">Home</a>
             <a href="/about/">About</a>
             <a  class="icon" onclick="menuToggle()"><i class="fa fa-bars"></i></a>
         </div>
-
      </div>
      <div id="status" class="status" ></div>
      <div class="main">
          <div id="app" ></div>
+     </div>
+     <div class="footer">
+         <p style="text-align:center">Mystix Footer</p>
      </div>
  </div>
 <script>
@@ -102,7 +103,13 @@
     //    }
     }
 
-    function sendData(data) {
+    //TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    function sendData(service, action, payload = null) {
+        var data = {};
+        data['service'] = service
+        data['action'] = action;
+        data['payload'] = payload;
+    //function sendData(data) {
         var jsondata = JSON.stringify(data);
         var token = localStorage.getItem("token");
         var authheader = false;
@@ -118,23 +125,17 @@
             data : jsondata,
             success: receiveData,
             error: function(response) {
-                if (response.status == 401)
-                {
+                if (response.status == 401) {
                     alert('error 401');
-                    //$("#app").html( '<button type="button" onclick="var page = \'/user/login\';getPage(page);history.pushState(page, page, page);">Error 401: Unauthorized,  Go to login page!</button>' );
                 }
-                else{
+                else {
                     alert('Error: ' + response.status)
                 }
-                console.log("error");
-                console.log(response);
             }
         });
     }
 
     function receiveData(data, textStatus, jqXHR) {
-        //console.log("success");
-        //console.log(data);
         onResponse(data, jqXHR);
     }
 
@@ -158,10 +159,15 @@
                     hours = dateObj.getUTCHours();
                     minutes = dateObj.getUTCMinutes();
                     seconds = dateObj.getUTCSeconds();
-                    formattedTime = hours.toString().padStart(2, '0') + 'h ' +
+                    formattedTime = //hours.toString().padStart(2, '0') + 'h ' +
                                     minutes.toString().padStart(2, '0') + 'min ' +
                                     seconds.toString().padStart(2, '0') + 's';
-                    //$("#status").append('<p>token valid for + ' + formattedTime + '</p>');
+                    if($("#tokenmsg").length == 0) {
+                        $(".footer").append('<p style="text-align:center;">Parsed Token: '+JSON.stringify(parsedToken)+'</p><p id="tokenmsg" style="text-align:center;">Token valid for: ' + formattedTime + '</p>');
+                    }
+                    else{
+                        $("#tokenmsg").text('Token valid for: ' + formattedTime );
+                    }
                     addstuff(parsedToken);
                     return parsedToken;
                 }
@@ -182,7 +188,7 @@
             var test = parsedToken['roles'];
             if(jQuery.inArray("admin", test) !== -1) {
                 //alert('isAdmin');
-                $('#myTopnav').html("<a href='/' class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character List</a><a href='/user/list/'>List User</a><a href='/page/add/'>Add Page</a><a href='/service/add/'>Add Service</a><a href='/user/listAllPermission/'>List permission</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
+                $('#myTopnav').html("<a href='/' class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character</a><a href='/user/list/'>User</a><a href='/user/listRoles/'>Roles</a><a href='/user/listAllPermission/'>Permissions</a><a href='/page/add/'>Add Page</a><a href='/service/add/'>Add Service</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
             }
         }
     }

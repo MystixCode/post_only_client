@@ -5,11 +5,7 @@
         //if admin role -> Request stuff from api
         var test = parsedToken['roles'];
         if(jQuery.inArray("admin", test) !== -1) {
-
-            var data = {};
-            data['service'] = "user";
-            data['action'] = "listAllPermission";
-            sendData(data);
+            sendData('user', 'listAllPermission');
         }
     }
     else {
@@ -19,56 +15,81 @@
     function onResponse(data){
         if (data['payload']!='' && data['payload']!='[]' && data['payload']!=null)
         {
-            var payload = data['payload'] ;
-            $("#app").append("<table id ='permissionlist' style='width:100%;margin-bottom:10px;'></table>");
-            //foreach item in payload
-            $("#permissionlist").append('<thead><tr><th>Permission</th></tr></thead><tbody></tbody>');
-            var thead = [];
-            payload.forEach ((permission, index) => {
-                permission['roles'].forEach ((role, index) => {
-                    if(jQuery.inArray(role, thead) == -1)
-                    {
-                        thead.push(role);
-                    }
+            if (data['action'] == 'listAllPermission') {
+                var payload = data['payload'] ;
+                $("#app").append("<table id ='permissionlist' style='width:100%;margin-bottom:10px;'></table>");
+                //foreach item in payload
+                $("#permissionlist").append('<thead><tr><th>Permission</th></tr></thead><tbody></tbody>');
+                var thead = [];
+                payload.forEach ((permission, index) => {
+                    permission['roles'].forEach ((role, index) => {
+                        if(jQuery.inArray(role, thead) == -1)
+                        {
+                            thead.push(role);
+                        }
+                    });
                 });
-            });
 
-            //foreach thead item -> table head append
-            thead.forEach ((item, index) => {
-                $("#permissionlist > thead > tr").append('<th>' + item + '</th>');
-            });
-
-            //foreach permission -> table body append
-            payload.forEach ((permission, index) => {
-                $("#permissionlist > tbody").append("<tr><td data-label='permission_name'>" + permission['permission_name'] + "</td></tr>");
-                thead.forEach ((item, index2) => {
-                    if(jQuery.inArray(item, permission['roles']) < 0) {
-                        $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="cb_role_' + item + '"><input type="checkbox"></td>');
-                    }
-                    else{
-                        $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="cb_role_' + item + '"><input type="checkbox" checked></td>');
-                    }
+                //foreach thead item -> table head append
+                thead.forEach ((item, index) => {
+                    $("#permissionlist > thead > tr").append('<th>' + item + '</th>');
                 });
-            });
-                $('#app').append('<button onclick="editAllPermission()">Save</button>');
+
+                //foreach permission -> table body append
+                payload.forEach ((permission, index) => {
+                    $("#permissionlist > tbody").append("<tr id='"+ permission['permission_name'] +"'><td id='test' data-label='permission_name'>" + permission['permission_name'] + "</td></tr>");
+                    thead.forEach ((item, index2) => {
+                        if(jQuery.inArray(item, permission['roles']) < 0) {
+                            $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="cb_' + permission['permission_name'] + '-' + item + '"><input id="' + item + '"  type="checkbox"></td>');
+                        }
+                        else{
+                            $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="cb_' + permission['permission_name'] + '-' + item + '"><input id="' + item + '" type="checkbox" checked></td>');
+                        }
+                    });
+                });
+                    $('#app').append('<button onclick="editAllPermission()">Save</button>');
+            }
         }
     }
 
     function editAllPermission(){
-        alert('TODO editAllPermission');
+
         //TODO create array with dat
-        var data = {};
-        data['service'] = "user";
-        data['action'] = "editAllPermission";
-        data['payload'] = {};
-        //data['payload'][] ;
-        //TODO: aktuelli baustell!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //TODO data['payload'] korrekt fülla  mit data usem $(#permissionlist > tbody')
+        var payload = [];
+
+        $('#permissionlist > tbody > tr').each( function( index, value ) {
+            //alert( "<tr>: " + value.id );
+            var entry = {};
+            entry['permission_name'] = value.id;
+            entry['roles'] = [];
+
+            $(value).children().each( function( index2, value2 ) {
+
+                $(value2).children().each( function( index3, value3 ) {
+                    //alert(value3.id);
+                    if(value3.checked)
+                    {
+                        entry['roles'].push(value3.id);
+                        //var roles = [];
+                        //roles[] = value3.id;
+                        //data['payload']['roles'] =
+                        //alert('checked!!!!');
+                    }
+                    else {
+                        //alert('not checked');
+                    }
+                });
+
+            });
+
+        payload.push(entry);
+        });
+
+        //TODO data['payload'] korrekt fülla  mit data usem $('#permissionlist > tbody')
         //data['payload']['permission_name'] = $TODO_
         //data['payload']['roles'] = TODO
-        //data['payload']['id'] = $(this[name="id"]).val();
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        sendData(data);
+        sendData('user', 'editAllPermission', payload);
     }
 
     </script>

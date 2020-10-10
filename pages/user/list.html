@@ -5,10 +5,7 @@
         //if admin role -> Request stuff from api
         var test = parsedToken['roles'];
         if(jQuery.inArray("admin", test) !== -1) {
-            var data = {};
-            data['service'] = "user";
-            data['action'] = "list";
-            sendData(data);
+            sendData('user', 'list');
         }
     }
     else {

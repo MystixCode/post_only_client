@@ -1,34 +1,30 @@
-<h2>Delete Character</h2>
-
+<h2>Delete Role</h2>
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
         var path = $(location).attr('pathname');
         path = path.replace(/^\/|\/$/g, '');
         var pagearr = path.split('/');
-        var char_id=pagearr[2];
-        $("#app").append('<p>Are u sure u want to delete character id: '+char_id+'</p><button style="background-color:#670000;" onclick="deleteCharacter()">Delete Character</button>');
-
+        var role_id=pagearr[2];
+        $("#app").append('<p>Are u sure u want to delete role id: '+role_id+'</p><button style="background-color:#670000;" onclick="deleteRole()">Delete Role</button>');
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
 
     function onResponse(data) {
-            var payload = data['payload'];
-            if (data['action'] == 'delete')
+            if (data['action'] == 'deleteRole')
             {
-                $("#status").html('<p>' + payload['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
-                var page = '/character/list';
+                $("#status").html('<p>' + data['payload']['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
+                var page = '/user/listRoles';
                 getPage(page);
                 history.pushState(page, page, page);
             }
     }
 
-    function deleteCharacter() {
+    function deleteRole() {
         event.preventDefault(); //prevent default action
         var payload = {};
-
-        payload['character_id'] = char_id;
-        sendData('character', 'delete', payload);
+        payload['role_id'] = pagearr[2];
+        sendData('user', 'deleteRole', payload);
     }
 </script>

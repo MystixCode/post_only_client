@@ -1,29 +1,32 @@
 <h2>Register</h2>
     <form action="#" method="post" id="registerform">
-        <label>Name</label>
-        <input type="text" name="name">
-        <label>Email</label>
-        <input type="email" name="email">
-        <label>Password</label>
-        <input type="password" name="password">
-        <label>Password2</label>
-        <input type="password" name="password2">
+        <fieldset>
+            <legend>Name</legend>
+            <input type="text" name="name">
+        </fieldset>
+        <fieldset>
+            <legend>Email</legend>
+            <input type="email" name="email">
+        </fieldset>
+        <fieldset>
+            <legend>Password</legend>
+            <input type="password" name="password">
+        </fieldset>
+        <fieldset>
+            <legend>Password2</legend>
+            <input type="password" name="password2">
+        </fieldset>
         <input type="submit" name="submit" value="Submit Form">
-        <div id="server-results"></div>
     </form>
-<p>todo only layout here no content or title</p>
 <script>
     $("#registerform").submit(function(event) {
         event.preventDefault(); //prevent default action
-        var data = {};
-        data['service'] = "user";
-        data['action'] = "register";
-        data['payload'] = {};
-        data['payload']['name'] = $(this[name="name"]).val();
-        data['payload']['email'] = $(this[name="email"]).val();
-        data['payload']['password'] = $(this[name="password"]).val();
-        data['payload']['password2'] = $(this[name="password2"]).val();
-        sendData(data);
+        var payload = {};
+        payload['name'] = $(this[name="name"]).val();
+        payload['email'] = $(this[name="email"]).val();
+        payload['password'] = $(this[name="password"]).val();
+        payload['password2'] = $(this[name="password2"]).val();
+        sendData('user', 'register', payload);
     });
 
   function onResponse(data){

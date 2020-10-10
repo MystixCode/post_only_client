@@ -17,22 +17,14 @@
                 history.pushState(page, page, page);
             }
     }
-    
+
     function deleteOtherUser() {
         event.preventDefault(); //prevent default action
-        var data = {};
-        data['service'] = "user";
-        data['action'] = "deleteOther";
-        data['payload'] = {};
+        var payload = {};
         var path = $(location).attr('pathname');
         path = path.replace(/^\/|\/$/g, '');
         var pagearr = path.split('/');
-        var payload = [];
-        for (i = 2; i < pagearr.length; i++) {
-            payload.push(pagearr[i]);
-            //alert(pagearr[i]);
-        }
-        data['payload']['id'] = payload[0];
-        sendData(data);
+        payload['id'] = pagearr[2];
+        sendData('user', 'deleteOther', payload);
     }
 </script>

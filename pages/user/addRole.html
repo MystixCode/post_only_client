@@ -1,12 +1,11 @@
-<h2>Create Character</h2>
-    <form action="#" method="post" id="createcharacterform">
+<h2>Add Role</h2>
+    <form action="#" method="post" id="addroleform">
         <fieldset>
             <legend>Name</legend>
             <input type="text" name="name">
         </fieldset>
         <input type="submit" name="submit" value="Submit Form">
     </form>
-<p>todo only layout here no content or title</p>
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
@@ -15,17 +14,16 @@
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
 
-    $("#createcharacterform").submit(function(event) {
+    $("#addroleform").submit(function(event) {
         event.preventDefault(); //prevent default action
         var payload = {};
         payload['name'] = $(this[name="name"]).val();
-        sendData('character', 'create', payload);
-        //sendData(service, action, payload)
+        sendData('user', 'addRole', payload);
     });
 
   function onResponse(data){
       $("#status").html('<p>' + data['payload'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
-      var page = '/character/list';
+      var page = '/user/listRoles';
       getPage(page);
       history.pushState(page, page, page);
   }

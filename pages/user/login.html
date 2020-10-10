@@ -1,23 +1,23 @@
 <h2>Login</h2>
     <form action="#" method="post" id="loginform">
-        <label>Name</label>
-        <input type="text" name="name">
-        <label>Password</label>
-        <input type="password" name="password">
+        <fieldset>
+            <legend >Name</legend>
+            <input type="text" name="name" id="name">
+        </fieldset>
+        <fieldset>
+            <legend>Password</legend>
+            <input type="password" name="password">
+        </fieldset>
         <input type="submit" name="submit" value="Submit Form">
     </form>
-<p>TODO only layout here get content like title etc from api</p>
 <script>
 
     $("#loginform").submit(function(event){
         event.preventDefault(); //prevent default action
-        var data = {};
-        data['service'] = "user";
-        data['action'] = "login";
-        data['payload'] = {};
-        data['payload']['name'] = $(this[name="name"]).val();
-        data['payload']['password'] = $(this[name="password"]).val();
-        sendData(data);
+        var payload = {};
+        payload['name'] = $(this[name="name"]).val();
+        payload['password'] = $(this[name="password"]).val();
+        sendData('user','login', payload);
     });
 
     function onResponse(data, jqXHR){
