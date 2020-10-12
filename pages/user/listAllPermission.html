@@ -18,26 +18,23 @@
             if (data['action'] == 'listAllPermission') {
                 var payload = data['payload'] ;
                 $("#app").append("<table id ='permissionlist' style='width:100%;margin-bottom:10px;'></table>");
-                //foreach item in payload
+                 //foreach item in payload
                 $("#permissionlist").append('<thead><tr><th>Permission</th></tr></thead><tbody></tbody>');
                 var thead = [];
-                payload.forEach ((permission, index) => {
-                    permission['roles'].forEach ((role, index) => {
-                        if(jQuery.inArray(role, thead) == -1)
-                        {
-                            thead.push(role);
-                        }
-                    });
+                payload['roles'].forEach ((role, index) => {
+                     thead.push(role['role_name']);
                 });
+
                 //foreach thead item -> table head append
                 thead.forEach ((item, index) => {
                     $("#permissionlist > thead > tr").append('<th>' + item + '</th>');
                 });
                 //foreach permission -> table body append
-                payload.forEach ((permission, index) => {
+                payload['permissions'].forEach ((permission, index) => {
                     $("#permissionlist > tbody").append("<tr id='"+ permission['permission_name'] +"'><td id='test' data-label='permission_name'>" + permission['permission_name'] + "</td></tr>");
                     thead.forEach ((item, index2) => {
-                        if(jQuery.inArray(item, permission['roles']) < 0) {
+
+                        if(permission['roles'][index2] == item['role_id']) {
                             $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="cb_' + permission['permission_name'] + '-' + item + '"><input id="' + item + '"  type="checkbox"></td>');
                         }
                         else{

@@ -16,8 +16,7 @@
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
-        var roles = parsedToken['roles'];
-        if(jQuery.inArray("admin", roles) !== -1) {
+        if(jQuery.inArray("admin", parsedToken['roles']) !== -1) {
             $("#addserviceform").submit(function(event) {
                 event.preventDefault(); //prevent default action
                  var payload = {};

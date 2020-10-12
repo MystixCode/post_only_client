@@ -10,10 +10,7 @@
     <body>
     <script>
 
-        if ($("#app").length !== 0){
-            //Do nothing
-        }
-        else {
+        if ($("#app").length === 0){
             //template not loaded --> load template;
             var page = '/pages/template.html';
             $("body").load(page);

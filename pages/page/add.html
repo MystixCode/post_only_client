@@ -15,14 +15,14 @@
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
-        var roles = parsedToken['roles'];
-        if(jQuery.inArray("admin", roles) !== -1) {
+        if(jQuery.inArray("admin", parsedToken['roles']) !== -1) {
             sendData('user', 'list');
         }
     }
     else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
     }
+
     function onResponse(data){
         if (data['payload']!='')
         {
@@ -44,8 +44,7 @@
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
-        var roles = parsedToken['roles'];
-        if(jQuery.inArray("admin", roles) !== -1) {
+        if(jQuery.inArray("admin", parsedToken['roles']) !== -1) {
             $("#addpageform").submit(function(event) {
                 event.preventDefault(); //prevent default action
                 var payload = {};
