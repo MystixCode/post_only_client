@@ -16,7 +16,7 @@
         event.preventDefault(); //prevent default action
         var payload = {};
         payload['name'] = $(this[name="name"]).val();
-        sendData('user', 'addRole', payload);
+        sendData('role', 'add', payload);
     });
 
   function onResponse(data){

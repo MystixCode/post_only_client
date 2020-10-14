@@ -4,7 +4,7 @@
     if (parsedToken){
         //if admin role -> Request stuff from api
         if(jQuery.inArray("admin", parsedToken['roles']) !== -1) {
-            sendData('user', 'listAllPermission');
+            sendData('permission', 'list');
         }
     }
     else {
@@ -15,7 +15,7 @@
         if (data['payload']!='' && data['payload']!='[]' && data['payload']!=null)
         {
             var payload = data['payload'] ;
-            if (data['action'] == 'listAllPermission') {
+            if (data['action'] == 'list') {
                 $("#app").append("<table id ='permissionlist' style='width:100%;margin-bottom:10px;'></table>");
                  //foreach item in payload
                 $("#permissionlist").append('<thead><tr><th>id</th><th>permission</th></tr></thead><tbody></tbody>');
@@ -41,10 +41,10 @@
                     });
                 });
             }
-            if (data['action'] == 'addPermissionToRole') {
+            if (data['action'] == 'addToRole') {
                 $("#status").html('<p>' + payload['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
             }
-            if (data['action'] == 'removePermissionFromRole') {
+            if (data['action'] == 'deleteFromRole') {
                 $("#status").html('<p>' + payload['message'] + '</p>').fadeIn(setTimeout(fade_out, 10000));
             }
         }
@@ -57,9 +57,9 @@ function cbevent(perm_id, role_id) {
     payload['role_id'] = role_id;
     //get element by perm_id > role_id.. if checked...
     if($('#' + perm_id + ' #' + role_id).is(':checked')) {
-        sendData('user', 'addPermissionToRole', payload);
+        sendData('permission', 'addToRole', payload);
     } else {
-        sendData('user', 'removePermissionFromRole', payload);
+        sendData('permission', 'deleteFromRole', payload);
     }
 }
     </script>

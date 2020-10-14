@@ -181,7 +181,7 @@
             $('#myTopnav').html("<a href='/'  class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character List</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
             if(jQuery.inArray("admin", parsedToken['roles']) !== -1) {
                 //alert('isAdmin');
-                $('#myTopnav').html("<a href='/' class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character</a><a href='/user/list/'>User</a><a href='/user/listRoles/'>Roles</a><a href='/user/listAllPermission/'>Permissions</a><a href='/page/add/'>Add Page</a><a href='/service/add/'>Add Service</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
+                $('#myTopnav').html("<a href='/' class='active'>Home</a><a href='/about/'>About</a><a href='/character/list/'>Character</a><a href='/user/list/'>User</a><a href='/role/list/'>Roles</a><a href='/permission/list'>Permissions</a><a href='/page/add/'>Add Page</a><a href='/service/add/'>Add Service</a><a class='icon' onclick='menuToggle()'><i class='fa fa-bars'></i></a>");
             }
         }
     }

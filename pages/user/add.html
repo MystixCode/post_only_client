@@ -26,7 +26,7 @@
         payload['email'] = $(this[name="email"]).val();
         payload['password'] = $(this[name="password"]).val();
         payload['password2'] = $(this[name="password2"]).val();
-        sendData('user', 'register', payload);
+        sendData('user', 'add', payload);
     });
 
   function onResponse(data){
