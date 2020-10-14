@@ -14,8 +14,8 @@
     function onResponse(data){
         if (data['payload']!='' && data['payload']!='[]' && data['payload']!=null)
         {
+            var payload = data['payload'] ;
             if (data['action'] == 'listAllPermission') {
-                var payload = data['payload'] ;
                 $("#app").append("<table id ='permissionlist' style='width:100%;margin-bottom:10px;'></table>");
                  //foreach item in payload
                 $("#permissionlist").append('<thead><tr><th>id</th><th>permission</th></tr></thead><tbody></tbody>');
@@ -51,17 +51,15 @@
     }
 
 function cbevent(perm_id, role_id) {
-    $("#status").html('<p>permission_id: ' + perm_id + '\nrole_id: ' + role_id + '</p>').fadeIn(setTimeout(fade_out, 10000));
+    //$("#status").html('<p>permission_id: ' + perm_id + '\nrole_id: ' + role_id + '</p>').fadeIn(setTimeout(fade_out, 10000));
+    var payload = {};
+    payload['permission_id'] = perm_id;
+    payload['role_id'] = role_id;
     //get element by perm_id > role_id.. if checked...
     if($('#' + perm_id + ' #' + role_id).is(':checked')) {
-        alert('checked');
-        //TODO payload = permission_id: perm_id, role_id: role_id;
-        //TODO sendData('user', 'addPermissionToRole', payload);
+        sendData('user', 'addPermissionToRole', payload);
     } else {
-        alert('not checked');
-        //TODO payload = permission_id: perm_id, role_id: role_id;
-        //TODO sendData('user', 'removePermissionFromRole', payload);
+        sendData('user', 'removePermissionFromRole', payload);
     }
-    //TODO test new db.sql.. override db
 }
     </script>
