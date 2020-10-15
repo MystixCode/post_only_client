@@ -20,11 +20,13 @@
     });
 
     function onResponse(data, jqXHR){
-        //if jwt in header goto loggedin page
-        var token = jqXHR.getResponseHeader("Authorization").replace('Bearer ','');
-        if (token) {
-            //TODO if valide token received -> logged in
-            localStorage.setItem("token", token); //store token in browser web storage
+        var access_token = data['payload']['access_token'];
+        var refresh_token = data['payload']['refresh_token'];
+
+        if (access_token) {
+            //TODO if valide token received -> store it
+            localStorage.setItem("access_token", access_token); //store token in browser web storage
+            localStorage.setItem("refresh_token", refresh_token);
             var page = '/';
             getPage(page);
             history.pushState(page, page, page);

@@ -33,10 +33,10 @@
                     $("#permissionlist > tbody").append("<tr id='"+ permission['permission_id'] +"'><td data-label='permission_id'>" + permission['permission_id'] + "</td><td data-label='permission_name'>" + permission['permission_name'] + "</td></tr>");
                     payload['roles'].forEach ((item, index2) => {
                         if(permission['roles'][index2] == item['role_id']) {
-                            $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="' + item['role_name'] + '"><input onclick="cbevent(' + permission['permission_id'] + ', ' + item['role_id'] + ');" id="' + item['role_id'] + '"  type="checkbox" checked></td>');
+                            $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="' + item['role_name'] + '"><input id="' + item['role_id'] + '"  type="checkbox" checked></td>');
                         }
                         else{
-                            $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="' + item['role_name'] + '"><input onclick="cbevent(' + permission['permission_id'] + ', ' + item['role_id'] + ');" id="' + item['role_id'] + '"  type="checkbox"></td>');
+                            $("#permissionlist > tbody > tr").last().append('<td class="alignright" data-label="' + item['role_name'] + '"><input id="' + item['role_id'] + '"  type="checkbox"></td>');
                         }
                     });
                 });
@@ -50,16 +50,18 @@
         }
     }
 
-function cbevent(perm_id, role_id) {
-    //$("#status").html('<p>permission_id: ' + perm_id + '\nrole_id: ' + role_id + '</p>').fadeIn(setTimeout(fade_out, 10000));
-    var payload = {};
-    payload['permission_id'] = perm_id;
-    payload['role_id'] = role_id;
-    //get element by perm_id > role_id.. if checked...
-    if($('#' + perm_id + ' #' + role_id).is(':checked')) {
-        sendData('permission', 'addToRole', payload);
-    } else {
-        sendData('permission', 'deleteFromRole', payload);
-    }
-}
+    $(document).on('click', 'input:checkbox', function(){
+        var payload = {};
+        payload['permission_id'] = $(this).parent().parent().attr('id');
+        payload['role_id'] = this.id;
+        if(this.checked) {
+            alert('checked');
+            sendData('permission', 'addToRole', payload);
+        } else {
+            alert('not checked');
+            sendData('permission', 'deleteFromRole', payload);
+        }
+    });
+
+
     </script>

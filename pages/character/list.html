@@ -2,9 +2,6 @@
 <script>
     var parsedToken = isLoggedIn();
     if (parsedToken){
-            var data = {};
-            data['service'] = "character";
-            data['action'] = "list";
             sendData('character', 'list');
     } else {
         $("#app").html('<button type="button" onclick="var page=\'/\';getPage(page);history.pushState(page, page, page);">Error Go Home</button>');
@@ -21,6 +18,6 @@
             });
             $("characterlist").append('</tbody>');
         }
-        $("#app").append('<button type="button" onclick="var page = \'/character/create\';getPage(page);history.pushState(page, page, page);">Create new char.</button>');
+        $("#app").append('<button type="button" onclick="var page = \'/character/add\';getPage(page);history.pushState(page, page, page);">Add new char</button>');
     }
 </script>

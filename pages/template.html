@@ -29,6 +29,7 @@
      </div>
  </div>
 <script>
+
     //If link clicked prevent default and get page via ajax
     $(document).on('click', 'a', function(event) {
         event.preventDefault();
@@ -93,7 +94,7 @@
             page = '/home';
         }
         if (page == '/user/logout') {
-            localStorage.removeItem('token');
+            localStorage.removeItem('access_token');
             window.location.href = "https://mystixgame.tk";
         }
         $("#app").load('/pages' + page + '.html', payload);
@@ -105,7 +106,7 @@
         data['action'] = action;
         data['payload'] = payload;
         var jsondata = JSON.stringify(data);
-        var token = localStorage.getItem("token");
+        var token = localStorage.getItem("access_token");
         var authheader = false;
         if (token){
             authheader = {'Authorization':'Bearer ' + token};
@@ -130,7 +131,23 @@
     }
 
     function receiveData(data, textStatus, jqXHR) {
-        onResponse(data, jqXHR);
+        //TODO if access and refresh token in body save to localstorage
+        //TODO delete that stuff from login.html
+        if((data['service']=='token') && (data['action']=='refresh')){
+            alert('access_token and refresh_token received');
+            var access_token = data['payload']['access_token'];
+            var refresh_token = data['payload']['refresh_token'];
+            if (access_token && refresh_token) {
+                //TODO: stop caching and exec cache requests !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                localStorage.setItem("access_token", access_token);
+                localStorage.setItem("refresh_token", refresh_token);
+                location.reload(); //TODO anstatt reload --> cache requests and getPage requests -- getPage could be implemented over api too..
+                //oder: getPage(currentPage);
+            }
+        }
+        else{
+            onResponse(data, jqXHR);
+        }
     }
 
     function parseJWT (token) {
@@ -143,7 +160,7 @@
     }
 
     function isLoggedIn() {
-        var token = localStorage.getItem("token");
+        var token = localStorage.getItem("access_token");
         if (token){
             var parsedToken = parseJWT(token)
             if (parsedToken['username']){ //IF "LOGGEDIN"
@@ -165,9 +182,13 @@
                     addstuff(parsedToken);
                     return parsedToken;
                 }
+                else{
+                    var refresh_token = localStorage.getItem("refresh_token");
+                    sendData('token', 'refresh', refresh_token);
+                    //TODO: start caching requests !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
             }
         }
-        //alert('token invalid');
         return false;
     }
 

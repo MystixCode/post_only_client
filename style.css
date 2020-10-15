@@ -1,34 +1,88 @@
-/*## purple color shades ################################*/
-/* #57008a */
-/* var(--color2) */
-/* var(--color3) */
-/* #d985ff */
-/* #ffb0ff */
-
+/*## color vars ##############################################################*/
 :root {
  --color1: #57008a;
  --color2: #8134b4;
  --color3: #ad5cdf;
  --color4: #d985ff;
  --color5: #ffb0ff;
-
  --bgcolor1: #222222;
  --bgcolor2: #3B3B3B;
  --bgcolor3: #515151;
  --bgcolor4: #626262;
  --bgcolor5: #7E7E7E;
-
 }
 
-.fa{
-    color: var(--color3);
+/*## GRID ####################################################################*/
+.header { grid-area: header; background-color: var(--bgcolor1);}
+.menu { grid-area: menu; background-color: var(--bgcolor2);}
+.status{ grid-area: status; background-color: var(--color3);}
+.main { grid-area: main; background-color: var(--bgcolor1);margin:10px;}
+.footer { grid-area: footer; background-color: var(--bgcolor2);}
+
+.grid-container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto 1fr auto;
+  grid-template-areas:
+    'header header header header header header'
+    'menu menu menu menu menu menu'
+    'status status status status status status'
+    'main main main main main main'
+    'footer footer footer footer footer footer';
+  grid-gap: 0px;
+  padding: 0px;
 }
-.fa-angle-right{
-    float:left;
+
+.grid-container > div {
+  padding: 0px 0;
 }
+
+/*## Basic html tags #########################################################*/
+* {
+    outline: 0;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:18px;
+    color:#F7F7F7;
+}
+
+body {
+  background-color: var(--bgcolor1);
+}
+
 a{
+    text-decoration: none;
     color: var(--color3);
 }
+
+h1 {
+margin: 0;
+display: inline-block;
+vertical-align:middle;
+font-size:1.4em;
+
+}
+
+h2 {
+margin: 0;
+font-size:1.2em;
+padding-bottom: 5px;
+}
+
+img {
+    margin: 5px;
+    vertical-align:middle;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-align:left;
+}
+
 textarea{
   background-color: var(--bgcolor1);
   border:none;
@@ -53,70 +107,6 @@ td {
   background-color: var(--bgcolor3);
 }
 
-.alignright{
-        text-align: right;
-        width: 60px;
-
-}
-
-.footer p{
-    padding:14px 16px;;
-}
-
-/*## GRID ################################*/
-.header { grid-area: header; background-color: var(--bgcolor1);}
-.menu { grid-area: menu; background-color: var(--bgcolor2);}
-.status{ grid-area: status; background-color: var(--color3);}
-.main { grid-area: main; background-color: var(--bgcolor1);margin:10px;}
-.footer { grid-area: footer; background-color: var(--bgcolor2);}
-
-.grid-container {
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto 1fr auto;
-  grid-template-areas:
-    'header header header header header header'
-    'menu menu menu menu menu menu'
-    'status status status status status status'
-    'main main main main main main'
-    'footer footer footer footer footer footer';
-
-  grid-gap: 0px;
-  padding: 0px;
-}
-
-.grid-container > div {
-  padding: 0px 0;
-}
-
-/*## Basic html tags ################################*/
-* {
-  box-sizing: border-box;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size:18px;
-  color:#F7F7F7;
-}
-body {
-  background-color: var(--bgcolor1);
-
-}
-input{
-    width:100%;
-
-    caret-color: var(--color2);
-}
-
-input,
-.btn,
-button {
-  border: none;
-  text-decoration: none; /* remove underline from anchors */
-  background-color:var(--bgcolor1);
-    border-radius: 5px;
-}
-
 fieldset{
     padding-top:0px;!important
     padding:5px;
@@ -132,98 +122,90 @@ legend{
     font-weight: bold;
 }
 
+input{
+    width:100%;
+    caret-color: var(--color2);
+}
+
+input,
+.btn,
+button {
+  border: none;
+  text-decoration: none;
+  background-color:var(--bgcolor1);
+    border-radius: 5px;
+}
+
 button, input[type=submit] {
     background-color: var(--color2);
     padding:12px;
     cursor: pointer;
     width:auto;
-
-
 }
 button:hover, input[type=submit]:hover {
   background-color: var(--color3);
 }
 
-a {
-
-  text-decoration: none;
+/*## Classes for fontawesome #################################################*/
+.fa{
+    color: var(--color3);
 }
 
-h1 {
-margin: 0;
-display: inline-block;
-vertical-align:middle;
-font-size:1.4em;
-
+.fa-angle-right{
+    float:left;
 }
 
-h2 {
-margin: 0;
-font-size:1.2em;
-padding-bottom: 5px;
+/*## Class for aligning right in table TODO do it better #####################*/
+.alignright{
+        text-align: right;
+        width: 60px;
 }
 
-img {
-    margin: 5px;
-    vertical-align:middle;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  text-align:left;
+/*## footer text layout ######################################################*/
+.footer p{
+    padding:14px 16px;;
 }
 
 
-/*## Dropdown Button ################################*/
-
-
+/*## Dropdown Button #########################################################*/
 .dropdown {
- float: right;
+    float: right;
 }
 
 .dropdown-content {
- display: none;
- position: absolute;
- right: 0;
- background-color: var(--bgcolor2);
- border: 1px solid var(--bgcolor1);
- border:collapse;
- min-width: 160px;
- z-index: 1;
- box-shadow: 2px 6px 21px -2px rgba(0,0,0,0.75);
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--bgcolor2);
+    border: 1px solid var(--bgcolor1);
+    border:collapse;
+    min-width: 160px;
+    z-index: 1;
+    box-shadow: 2px 6px 21px -2px rgba(0,0,0,0.75);
 }
 
 .dropdown-content a {
     color:#F7F7F7;
-
-
- padding: 14px 16px;
- text-decoration: none;
- display: block;
- border: 1px solid var(--bgcolor1);
+    padding: 14px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid var(--bgcolor1);
 }
 
-.dropdown-content a:hover {background-color: var(--color3);}
-.dropdown:hover .dropdown-content {display: block;}
-.dropdown:hover .dropbtn {background-color: var(--color3);}
+.dropdown-content a:hover {
+    background-color: var(--color3);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: var(--color3);
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*## Table responsive test ###################################################*/
 
 @media screen and (max-width: 600px) {
   table {
@@ -247,7 +229,6 @@ ul {
   }
 
   table td {
-    /*border-bottom: 1px solid #ddd;*/
     display: block;
     font-size: .8em;
     text-align: right;
@@ -269,77 +250,59 @@ ul {
   button, input[type=submit] {
       width:100%;
   }
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*## Mainnav #################################################################*/
 .topnav {
-  overflow: hidden;
-
+    overflow: hidden;
 }
 
 .topnav a {
-  float: left;
-  display: block;
-  font-weight: bold;
-color:#F7F7F7;
-  padding: 14px 16px;
-
+    float: left;
+    display: block;
+    font-weight: bold;
+    color:#F7F7F7;
+    padding: 14px 16px;
 }
 
 .topnav a:hover {
-  background-color: #444;
-
+    background-color: #444;
 }
 
 .topnav a.active {
-  background-color: var(--color2); /* var(--color2) var(--color2) */
-
+    background-color: var(--color2);
 }
+
 .topnav a.active:hover {
-  background-color: var(--color3); /* var(--color2) var(--color2) */
-
+    background-color: var(--color3);
 }
+
 .topnav .icon {
-  display: none;
+    display: none;
 }
 
 @media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
+    .topnav a:not(:first-child) {
+        display: none;
+    }
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
 }
 
 @media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
+    .topnav.responsive {
+        position: relative;
+    }
+    .topnav.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
 }
